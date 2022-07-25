@@ -7,9 +7,10 @@ use App\Http\Livewire\Categories\CategoriesComponent;
 use App\Http\Livewire\Categories\CategoryServices;
 use App\Http\Livewire\HomeComponent;
 use App\Http\Livewire\Provider\ServiceProviderDashboard;
-use App\Http\Livewire\Services\ServiceCreate;
+use App\Http\Livewire\Provider\ServiceCreate;
 use App\Http\Livewire\Services\ServiceDetails;
 use App\Http\Livewire\Services\ServicesComponent;
+use App\Http\Livewire\Provider\ServiceUpdate;
 use App\Http\Livewire\User\UserDashboard;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +39,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => 'svp' ], function () {
         Route::get('service-provider-dashboard', ServiceProviderDashboard::class)->name('svp.dashboard');
         Route::get('/service-create', ServiceCreate::class)->name('svp.service-create');
+        Route::get('/service/{serviceSlug}/edit', ServiceUpdate::class)->name('svp.service-update');
     });
 
     Route::group(['middleware' => 'usr' ], function () {

@@ -2,12 +2,24 @@
 
 namespace App\Models;
 
+use App\Traits\ServicesTraits;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Service extends Model
 {
-    use HasFactory;
+    use HasFactory, ServicesTraits;
+
+    protected $fillable = [
+        'user_id',
+        'category_id',
+        'name',
+        'slug',
+        'price',
+        'services_offered',
+        'description',
+        'images',
+    ];
 
     public function category()
     {
@@ -18,5 +30,6 @@ class Service extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
 
 }

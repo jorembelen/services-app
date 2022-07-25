@@ -22,7 +22,7 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-3 ">
+                <div class="col-lg-3 theiaStickySidebar" wire:ignore>
                     <div class="card filter-card">
                         <div class="card-body">
                             <h4 class="card-title mb-4">Search Filter</h4>
@@ -82,7 +82,7 @@
                                 <div class="service-widget">
                                     <div class="service-img">
                                         <a href="{{ route('home.service_details', $service->slug) }}">
-                                            <img class="img-fluid serv-img" alt="Service Image" src="{{ asset('assets/img/services/' .$service->image) }}">
+                                            <img class="img-fluid serv-img" alt="Service Image" src="{{ $service->defaultImage() }}">
                                         </a>
                                         <div class="fav-btn">
                                             <a href="#" class="fav-icon">

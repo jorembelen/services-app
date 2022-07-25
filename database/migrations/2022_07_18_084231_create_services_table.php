@@ -15,19 +15,14 @@ return new class extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('slug')->unique();
-            $table->string('tagline');
             $table->foreignId('user_id')->nullable()->constrained();
             $table->foreignId('category_id')->nullable()->constrained();
+            $table->string('name');
+            $table->string('slug')->unique();
+            $table->text('description');
+            $table->text('services_offered');
             $table->decimal('price');
-            $table->decimal('discount')->nullable();
-            $table->enum('discount_type', ['fixed', 'percent'])->nullable();
-            $table->string('image')->nullable();
-            $table->string('thumbnail')->nullable();
-            $table->longText('description')->nullable();
-            $table->longText('inclusion')->nullable();
-            $table->longText('exclusion')->nullable();
+            $table->string('images')->nullable();
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

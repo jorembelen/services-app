@@ -11,7 +11,7 @@
                         <img alt="profile image" src="assets/img/provider/provider-01.jpg" class="avatar-lg rounded-circle">
                         <div class="ms-sm-3 ms-md-0 ms-lg-3 mt-2 mt-sm-0 mt-md-2 mt-lg-0">
                             <h6 class="mb-0">{{ auth()->user()->userFullName() }}</h6>
-                            <p class="text-muted mb-0">Member Since Apr 2020</p>
+                            <p class="text-muted mb-0">Member Since {{ auth()->user()->created_at->format('M Y') }}</p>
                         </div>
                     </div>
                 </div>
@@ -117,7 +117,7 @@
                         <div class="service-widget flex-fill">
                             <div class="service-img">
                                 <a href="{{ route('home.service_details', $service->slug) }}">
-                                    <img class="img-fluid serv-img" alt="Service Image" src="{{ asset('assets/img/services/' .$service->image) }}">
+                                    <img class="img-fluid serv-img" alt="Service Image" src="{{ $service->defaultImage() }}">
                                 </a>
                                 <div class="item-info">
                                     <div class="service-user">
@@ -133,7 +133,7 @@
                             </div>
                             <div class="service-content">
                                 <h3 class="title">
-                                    <a href="{{ route('home.service_details', $service->slug) }}">{{ $service->name }}</a>
+                                    <a href="{{ route('home.service_details', $service->slug) }}">{{ $service->name }} </a>
                                 </h3>
                                 <div class="rating">
                                     <i class="fas fa-star filled"></i>
@@ -147,7 +147,7 @@
                                     <div class="service-action">
                                         <div class="row">
                                             <div class="col">
-                                                <a href="edit-service.html" class="text-success"><i class="far fa-edit"></i> Edit</a>
+                                                <a href="{{ route('svp.service-update', $service->slug) }}" class="text-success"><i class="far fa-edit"></i> Edit</a>
                                             </div>
                                             <div class="col text-end">
                                                 <a href="javascript:void(0);" class="text-danger" data-toggle="modal" data-target="#deleteNotConfirmModal"><i class="far fa-trash-alt"></i> Inactive</a>
@@ -180,8 +180,8 @@
                         <div class="col-lg-4 col-md-6 inactive-service">
                             <div class="service-widget">
                                 <div class="service-img">
-                                    <a href="service-details.html">
-                                        <img class="img-fluid serv-img" alt="Service Image" src="{{ asset('assets/img/services/' .$item->image) }}">
+                                    <a href="#">
+                                        <img class="img-fluid serv-img" alt="Service Image" src="{{ asset('assets/img/services/' .$item->images) }}">
                                     </a>
                                     <div class="item-info">
                                         <div class="service-user">

@@ -7,10 +7,10 @@
                 <div class="col-xl-3 col-md-4">
                     <div class="mb-4">
                         <div class="d-sm-flex flex-row flex-wrap text-center text-sm-start align-items-center">
-                            <img alt="profile image" src="assets/img/customer/user-01.jpg" class="avatar-lg rounded-circle">
+                            <img alt="profile image" src="assets/img/customer/user-1.jpg" class="avatar-lg rounded-circle">
                             <div class="ms-sm-3 ms-md-0 ms-lg-3 mt-2 mt-sm-0 mt-md-2 mt-lg-0">
                                 <h6 class="mb-0">{{ auth()->user()->userFullName() }}</h6>
-                                <p class="text-muted mb-0">Member Since Apr 2020</p>
+                                <p class="text-muted mb-0">Member Since {{ auth()->user()->created_at->format('M Y') }}</p>
                             </div>
                         </div>
                     </div>

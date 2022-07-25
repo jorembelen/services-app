@@ -127,7 +127,7 @@
                                 <div class="service-widget">
                                     <div class="service-img">
                                         <a href="{{ route('home.service_details', $data->slug) }}">
-                                            <img class="img-fluid serv-img" alt="Service Image" src="{{ asset('assets/img/services/' .$data->image) }}">
+                                            <img class="img-fluid serv-img" alt="Service Image" src="{{ $data->defaultImage() }}">
                                         </a>
                                         <div class="fav-btn">
                                             <a href="#" class="fav-icon">

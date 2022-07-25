@@ -43,11 +43,13 @@
 
                 <ul class="nav header-navbar-rht">
 
+                    @if (auth()->user()->role == 'SVP')
                     <li class="nav-item desc-list">
                         <a href="{{ route('svp.service-create') }}" class="nav-link header-login">
                             <i class="fas fa-plus-circle me-1"></i> <span>Post a Service</span>
                         </a>
                     </li>
+                    @endif
 
                     <!-- Notifications -->
                     <li class="nav-item dropdown logged-item">
@@ -200,7 +202,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header p-0 border-0">
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">	<span aria-hidden="true">&times;</span>
+                    <button type="button" class="close" wire:click.prevent="close">	<span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
@@ -248,21 +250,236 @@
                         <div class="login-or">	<span class="or-line"></span>
                             <span class="span-or">or</span>
                         </div>
-                        <div class="row form-row social-login">
+                        {{-- <div class="row form-row social-login">
                             <div class="col-6 d-grid"><a href="#" class="btn btn-facebook btn-block"><i class="fab fa-facebook-f me-1"></i> Login</a>
                             </div>
                             <div class="col-6 d-grid">
                                 <button type="submit" class="btn btn-google btn-block"><i class="fab fa-google me-1"></i> Login</button>
                             </div>
-                        </div>
-                        <div class="text-center dont-have">Don’t have an account? <a href="#">Register</a>
-                        </div>
+                        </div> --}}
+                        <div class="text-center dont-have">Don’t have an account? <a href="#" wire:click.prevent="showRegProvider">Register</a></div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
     <!-- /Login Modal -->
+
+    <!-- Provider Register Modal -->
+    <div class="modal account-modal fade multi-step" id="regProvider" wire:ignore.self>
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header p-0 border-0">
+                    <button type="button" class="close" wire:click.prevent="close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="login-header">
+                        <h3>Join as a Provider</h3>
+                    </div>
+
+                    <!-- Register Form -->
+                    <form wire:submit.prevent="registerProvider">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group form-focus">
+                                    <label class="focus-label">First Name</label>
+                                    <input type="text" wire:model.defer="fname" class="form-control" placeholder="John">
+                                    @error('fname')
+                                    <div class="text-danger">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-focus">
+                                    <label class="focus-label">Last Name</label>
+                                    <input type="text" wire:model.defer="lname" class="form-control" placeholder="Doe">
+                                    @error('lname')
+                                    <div class="text-danger">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group form-focus">
+                                    <label class="focus-label">Email</label>
+                                    <input type="email" wire:model.defer="email" class="form-control" placeholder="johndoe@exapmle.com">
+                                    @error('email')
+                                    <div class="text-danger">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-focus">
+                                    <label class="focus-label">Mobile Number</label>
+                                    <input type="number" wire:model.defer="mobile" class="form-control" placeholder="09274521236">
+                                    @error('mobile')
+                                    <div class="text-danger">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group form-focus">
+                                    <label class="focus-label">Province</label>
+                                    <select class="form-control form-select" wire:model="selectedProvince">
+                                        <option value="">Choose province ...</option>
+                                        @foreach ($prov as $province)
+                                        <option value="{{ $province->id }}">{{ $province->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('selectedProvince')
+                                    <div class="text-danger">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-focus">
+                                    <label class="focus-label">City / Municipality</label>
+                                    <select class="form-control form-select"  wire:model="selectedCities" {{ is_null($selectedProvince) ? 'disabled' : null }}>
+                                        <option value=""> Choose City/Municipality ...</option>
+                                        @foreach ($cities as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('selectedCities')
+                                    <div class="text-danger">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group form-focus">
+                                    <label class="focus-label">Create Password</label>
+                                    <input type="password" wire:model.defer="password" class="form-control" placeholder="********">
+                                    @error('password')
+                                    <div class="text-danger">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-focus">
+                                    <label class="focus-label">Confirm Password</label>
+                                    <input type="password" wire:model.defer="password_confirmation" class="form-control" placeholder="********">
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="text-end">
+                            <a class="forgot-link" href="#" wire:click.prevent="showLogin">Already have an account?</a>
+                        </div>
+                        <div class="d-grid">
+                            <button class="btn btn-primary btn-block btn-lg login-btn" type="submit">Signup</button>
+                        </div>
+                        <div class="text-center dont-have"><a href="#" wire:click.prevent="showRegUser">Register as User?</a></div>
+                    </form>
+                    <!-- /Register Form -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Provider Register Modal -->
+
+    <!-- User Register Modal -->
+    <div class="modal account-modal fade multi-step" id="regUser" wire:ignore.self>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header p-0 border-0">
+                    <button type="button" class="close" wire:click.prevent="close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="login-header">
+                        <h3>Join as a User</h3>
+                    </div>
+
+                    <!-- Register Form -->
+                    <form wire:submit.prevent="registerUser">
+
+                        <div class="form-group form-focus">
+                            <label class="focus-label">First Name</label>
+                            <input type="text" wire:model.defer="fname" class="form-control" placeholder="John">
+                            @error('fname')
+                            <div class="text-danger">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="form-group form-focus">
+                            <label class="focus-label">Last Name</label>
+                            <input type="text" wire:model.defer="lname" class="form-control" placeholder="Doe">
+                            @error('lname')
+                            <div class="text-danger">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+
+
+                        <div class="form-group form-focus">
+                            <label class="focus-label">Email</label>
+                            <input type="email" wire:model.defer="email" class="form-control" placeholder="johndoe@exapmle.com">
+                            @error('email')
+                            <div class="text-danger">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="form-group form-focus">
+                            <label class="focus-label">Create Password</label>
+                            <input type="password" wire:model.defer="password" class="form-control" placeholder="********">
+                            @error('password')
+                            <div class="text-danger">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="form-group form-focus">
+                            <label class="focus-label">Confirm Password</label>
+                            <input type="password" wire:model.defer="password_confirmation" class="form-control" placeholder="********">
+                        </div>
+                        <div class="text-end">
+                            <a class="forgot-link" href="#">Already have an account?</a>
+                        </div>
+                        <div class="d-grid">
+                            <button class="btn btn-primary btn-block btn-lg login-btn" type="submit">Signup</button>
+                        </div>
+                        <div class="text-center dont-have"><a href="#" wire:click.prevent="showRegProvider">Register as Provider?</a></div>
+                    </form>
+                    <!-- /Register Form -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /User Register Modal -->
+
+
 
 </div>
 
@@ -272,8 +489,20 @@
     window.addEventListener('show-form', function (event) {
         $('#login').modal('show');
     });
+    window.addEventListener('show-regProvider-form', function (event) {
+        $('#regProvider').modal('show');
+    });
+    window.addEventListener('show-regUser-form', function (event) {
+        $('#regUser').modal('show');
+    });
     window.addEventListener('hide-form', function (event) {
         $('#login').modal('hide');
+    });
+    window.addEventListener('hide-regProvider-form', function (event) {
+        $('#regProvider').modal('hide');
+    });
+    window.addEventListener('hide-regUser-form', function (event) {
+        $('#regUser').modal('hide');
     });
 </script>
 @endpush

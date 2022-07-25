@@ -15,7 +15,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <address class="service-location"><i class="fas fa-location-arrow"></i> Hanover, Maryland</address>
+                            <address class="service-location"><i class="fas fa-location-arrow"></i> {{ $service->provider->providerLocation() }}</address>
                             {{-- <div class="rating">
                                 <i class="fas fa-star filled"></i>
                                 <i class="fas fa-star filled"></i>
@@ -28,59 +28,71 @@
                                 <a href="{{ route('home.category-service', $service->category->slug) }}">{{ $service->category->name }}</a>
                             </div>
                         </div>
-                        <div class="service-images service-carousel">
+                        <div class="service-images service-carousel" wire:ignore>
                             <div class="images-carousel owl-carousel owl-theme">
+
+                                @php
+                                $images = explode('|', $service->images);
+                                @endphp
+                                @if (count($images) > 1)
+                                @foreach ($images as $img)
                                 <div class="item">
-                                    <img src="/assets/img/services/service-2.jpg" alt="" class="img-fluid">
+                                    <img src="{{ Storage::disk('s3')->url('uploads/services/images/' .$img) }}" alt="" class="img-fluid">
                                 </div>
+                                @endforeach
+                                @else
                                 <div class="item">
-                                    <img src="/assets/img/services/service-2.jpg" alt="" class="img-fluid">
+                                    <img src="{{ $service->defaultImage() }}" alt="" class="img-fluid">
                                 </div>
-                                <div class="item">
-                                    <img src="/assets/img/services/service-2.jpg" alt="" class="img-fluid">
-                                </div>
+                                @endif
                             </div>
                         </div>
                         <div class="service-details">
                             <ul class="nav nav-pills service-tabs" id="pills-tab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Overview</a>
+                                    <a href="#" class="nav-link {{ $descriptionShow ? 'active' : null }}" wire:click.prevent="showDescription">Overview</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Services Offered</a>
+                                    <a href="#" class="nav-link {{ $servicesOffiredShow ? 'active' : null }}" wire:click.prevent="showServOffer">Services Offered</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="pills-book-tab" data-toggle="pill" href="#pills-book" role="tab" aria-controls="pills-book" aria-selected="false">Reviews</a>
+                                    <a href="#" class="nav-link {{ $reviewsShow ? 'active' : null }}" wire:click.prevent="showReviews" >Reviews</a>
                                 </li>
                             </ul>
                             <div class="tab-content">
-                                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                                @if ($descriptionShow)
+                                <div class="tab-pane fade {{ $descriptionShow ? 'show active' : null }}">
                                     <div class="card service-description">
-                                        <div class="card-body ">
+                                        <div class="card-body text-justify">
                                             <h5 class="card-title">Service Details</h5>
-                                            <p class="mb- ">
-                                                {{ $service->description }}
-                                            </p>
+                                                <p class="mb-">
+                                                    {{ $service->description }}
+                                                </p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                @endif
+                                @if ($servicesOffiredShow)
+                                <div class="tab-pane {{ $servicesOffiredShow ? 'show active' : null }}">
                                     <div class="card">
                                         <div class="card-body">
                                             <h5 class="card-title">Services Offered</h5>
                                             <div class="service-offer">
                                                 <ul class="list-bullet">
-                                                    <li>Lorem Ipsum</li>
-                                                    <li>Lorem Ipsum</li>
-                                                    <li>Lorem Ipsum</li>
-                                                    <li>Lorem Ipsum</li>
-                                                    <li>Lorem Ipsum</li>
+                                                    @php
+                                                    $so = explode(',', $service->services_offered);
+                                                    @endphp
+                                                    @foreach ($so as $item)
+                                                    <li>{{ $item }}</li>
+                                                    @endforeach
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="pills-book" role="tabpanel" aria-labelledby="pills-book-tab">
+                                @endif
+                                @if ($reviewsShow)
+                                <div class="tab-pane fade {{ $reviewsShow ? 'show active' : null }}">
                                     <div class="card review-box">
                                         <div class="card-body">
                                             <div class="review-list">
@@ -106,60 +118,61 @@
                                         </div>
                                     </div>
                                 </div>
+                                @endif
                             </div>
                         </div>
                     </div>
                     <h4 class="card-title">Related Services</h4>
-                    <div class="service-carousel">
+                    <div class="service-carousel" wire:ignore>
                         <div class="popular-slider owl-carousel owl-theme">
 
                             @foreach ($r_services as $r_service)
-                                <div class="service-widget">
-                                    <div class="service-img">
-                                        <a href="{{ route('home.service_details', $r_service->slug) }}">
-                                            <img class="img-fluid serv-img" alt="Service Image" src="{{ asset('/assets/img/services/' .$r_service->image) }}">
-                                        </a>
-                                        <div class="item-info">
-                                            <div class="service-user">
-                                                <a href="#">
-                                                    @php
-                                                    $no = [1,2,3,4,5,6,7,8,9,10];
-                                                    $avatar = 'user-' .Arr::random($no) .'.jpg';
-                                                    @endphp
-                                                    <img src="{{ asset('assets/img/customer/' .$avatar) }}" alt="">
-                                                </a>
-                                                <span class="service-price">{{ $r_service->price }}</span>
-                                            </div>
-                                            <div class="cate-list">
-                                                <a class="bg-yellow" href="{{ route('home.category-service', $r_service->category->slug) }}">{{ $r_service->category->name }}</a>
-                                            </div>
+                            <div class="service-widget">
+                                <div class="service-img">
+                                    <a href="{{ route('home.service_details', $r_service->slug) }}">
+                                        <img class="img-fluid serv-img" alt="Service Image" src="{{ asset('/assets/img/services/' .$r_service->images) }}">
+                                    </a>
+                                    <div class="item-info">
+                                        <div class="service-user">
+                                            <a href="#">
+                                                @php
+                                                $no = [1,2,3,4,5,6,7,8,9,10];
+                                                $avatar = 'user-' .Arr::random($no) .'.jpg';
+                                                @endphp
+                                                <img src="{{ asset('assets/img/customer/' .$avatar) }}" alt="">
+                                            </a>
+                                            <span class="service-price">{{ $r_service->price }}</span>
                                         </div>
-                                    </div>
-                                    <div class="service-content">
-                                        <h3 class="title">
-                                            <a href="#">{{ $r_service->name }}</a>
-                                        </h3>
-                                        <div class="rating">
-                                            <i class="fas fa-star filled"></i>
-                                            <i class="fas fa-star filled"></i>
-                                            <i class="fas fa-star filled"></i>
-                                            <i class="fas fa-star filled"></i>
-                                            <i class="fas fa-star"></i>
-                                            <span class="d-inline-block average-rating">(4.5)</span>
-                                        </div>
-                                        <div class="user-info">
-                                            <div class="row">
-                                                <span class="col-auto ser-contact"><i class="fas fa-phone me-1"></i> <span>xxxxxxxx30</span></span>
-                                                <span class="col ser-location"><span>Kalispell, Montana</span>  <i class="fas fa-map-marker-alt ms-1"></i></span>
-                                            </div>
+                                        <div class="cate-list">
+                                            <a class="bg-yellow" href="{{ route('home.category-service', $r_service->category->slug) }}">{{ $r_service->category->name }}</a>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="service-content">
+                                    <h3 class="title">
+                                        <a href="#">{{ $r_service->name }}</a>
+                                    </h3>
+                                    <div class="rating">
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star"></i>
+                                        <span class="d-inline-block average-rating">(4.5)</span>
+                                    </div>
+                                    <div class="user-info">
+                                        <div class="row">
+                                            <span class="col-auto ser-contact"><i class="fas fa-phone me-1"></i> <span>xxxxxxxx30</span></span>
+                                            <span class="col ser-location"><span>Kalispell, Montana</span>  <i class="fas fa-map-marker-alt ms-1"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             @endforeach
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 ">
+                <div class="col-lg-4 theiaStickySidebar" wire:ignore>
                     <div class="sidebar-widget widget">
                         <div class="service-amount">
                             <span>{{ $service->price }}</span>

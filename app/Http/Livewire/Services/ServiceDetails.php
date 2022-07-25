@@ -7,6 +7,9 @@ use Livewire\Component;
 
 class ServiceDetails extends Component
 {
+    public $descriptionShow = true;
+    public $servicesOffiredShow = false;
+    public $reviewsShow = false;
 
     public function mount($service_slug)
     {
@@ -26,4 +29,27 @@ class ServiceDetails extends Component
 
         return view('livewire.services.service-details', compact('service', 'r_services'))->extends('layouts.master');
     }
+
+    public function showServOffer()
+    {
+        $this->servicesOffiredShow = true;
+        $this->descriptionShow = false;
+        $this->reviewsShow = false;
+    }
+
+    public function showDescription()
+    {
+        $this->descriptionShow = true;
+        $this->servicesOffiredShow = false;
+        $this->reviewsShow = false;
+    }
+
+    public function showReviews()
+    {
+        $this->reviewsShow = true;
+        $this->servicesOffiredShow = false;
+        $this->descriptionShow = false;
+    }
+
+
 }
