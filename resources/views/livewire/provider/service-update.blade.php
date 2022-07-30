@@ -1,3 +1,6 @@
+
+@section('title', 'Service Update')
+
 <div>
 
     <div class="content">
@@ -7,7 +10,7 @@
                     <div class="section-header text-center">
                         <h2>Edit {{ $name }}</h2>
                     </div>
-                    <form wire:submit.prevent="updateService">
+                    <form wire:submit.prevent="updateService('{{ $serviceId }}')">
                         <div class="service-fields mb-3">
                             <h3 class="heading-2">Service Information</h3>
                             <div class="row">
@@ -21,142 +24,171 @@
                                         </div>
                                         @enderror
                                     </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label>Slug <span class="text-danger">*</span></label>
-                                        <input class="form-control" type="text" wire:model="slug" >
-                                        @error('slug')
-                                        <div class="text-danger">
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label>Service Amount <span class="text-danger">*</span></label>
-                                        <input class="form-control" type="number" wire:model.defer="price">
-                                        @error('price')
-                                        <div class="text-danger">
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="service-fields mb-3">
-                            <h3 class="heading-2">Service Category</h3>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label>Category <span class="text-danger">*</span></label>
-                                        <select class="form-control form-select" wire:model.defer="category_id">
-                                            <option>Choose Category...</option>
-                                            @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('category_id')
-                                        <div class="text-danger">
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="service-fields mb-3">
-                            <h3 class="heading-2">Service Offer</h3>
-                            <div class="membership-info">
-
-                                <div class="row form-row membership-cont">
-                                    <?php $i = 0 ?>
-                                    @foreach ($services_offered as $key => $value)
-                                    <?php $i++;?>
-                                    <div class="col-12 col-md-10 col-lg-10">
+                                    <div class="col-lg-12">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" wire:model.defer="services_offered.{{ $key }}.name">
-                                            @error('services_offered')
+                                            <label>Slug <span class="text-danger">*</span></label>
+                                            <input class="form-control" type="text" wire:model="slug" >
+                                            @error('slug')
                                             <div class="text-danger">
                                                 {{ $message }}
                                             </div>
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-12 col-md-2 col-lg-2">
-                                        <a href="#" class="btn btn-danger" wire:click.prevent="remove('{{ $key }}')"><i class="far fa-times-circle"></i></a>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Service Amount <span class="text-danger">*</span></label>
+                                            <input class="form-control" type="number" wire:model.defer="price">
+                                            @error('price')
+                                            <div class="text-danger">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </div>
                                     </div>
 
-                                    @endforeach
-                                </div>
-                                <div class="add-more form-group">
-                                    <a href="#" class="add-memberships" wire:click.prevent="add('{{ $key }}')"><i class="fas fa-plus-circle"></i> Add More</a>
                                 </div>
                             </div>
-                        </div>
 
-
-                        <div class="service-fields mb-3">
-                            <h3 class="heading-2">Details Information</h3>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label>Descriptions <span class="text-danger">*</span></label>
-                                        <textarea class="form-control service-desc" wire:model.defer="description"></textarea>
-                                        @error('description')
-                                        <div class="text-danger">
-                                            {{ $message }}
+                            <div class="service-fields mb-3">
+                                <h3 class="heading-2">Service Category</h3>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Category <span class="text-danger">*</span></label>
+                                            <select class="form-control form-select" wire:model.defer="category_id">
+                                                <option>Choose Category...</option>
+                                                @foreach ($categories as $category)
+                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('category_id')
+                                            <div class="text-danger">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
                                         </div>
-                                        @enderror
                                     </div>
+
                                 </div>
                             </div>
-                        </div>
-                        <div class="service-fields mb-3">
-                            <h3 class="heading-2">Service Gallery </h3>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="service-upload">
-                                        <i class="fas fa-cloud-upload-alt"></i> <span>Upload Service Images *</span>
-                                        <input type="file" wire:model.defer="images" multiple>
-                                        @error('image')
-                                        <div class="text-danger">
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
-                                    </div>
-                                    @if ($images)
-                                    <div>
-                                        <ul class="upload-wrap">
-                                            @foreach ($images as $img)
-                                            <li>
-                                                <div class="upload-images">
-                                                    <img alt="Service Image" src="{{ $img->temporaryUrl() }}">
+                            <div class="service-fields mb-3">
+                                <h3 class="heading-2">Service Offer</h3>
+                                <div class="membership-info">
+
+                                    <div class="row form-row membership-cont">
+                                        <?php $i = 0 ?>
+                                        @foreach ($services_offered as $key => $value)
+                                        <?php $i++;?>
+                                        <div class="col-12 col-md-10 col-lg-10">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" wire:model.defer="services_offered.{{ $key }}.name">
+                                                @error('services_offered')
+                                                <div class="text-danger">
+                                                    {{ $message }}
                                                 </div>
-                                            </li>
-                                            @endforeach
-                                        </ul>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-2 col-lg-2">
+                                            <a href="#" class="btn btn-danger" wire:click.prevent="remove('{{ $key }}')"><i class="far fa-times-circle"></i></a>
+                                        </div>
+
+                                        @endforeach
                                     </div>
-                                    @endif
+                                    <div class="add-more form-group">
+                                        <a href="#" class="add-memberships" wire:click.prevent="add('{{ $key }}')"><i class="fas fa-plus-circle"></i> Add More</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="submit-section text-end">
-                            <div wire:loading wire:target="updateService" class="progress-bar progress-bar-striped progress-bar-animated mt-2" role="status" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Processing . . .</div>
-                            <div wire:loading wire:target="images" class="progress-bar progress-bar-striped progress-bar-animated mt-2" role="status" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Uploading . . .</div>
 
-                            <div wire:loading.remove wire:target="images, updateService">
-                                <button class="btn btn-primary submit-btn" type="submit">Submit</button>
+
+                            <div class="service-fields mb-3">
+                                <h3 class="heading-2">Details Information</h3>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label>Descriptions <span class="text-danger">*</span></label>
+                                            <textarea class="form-control service-desc" wire:model.defer="description"></textarea>
+                                            @error('description')
+                                            <div class="text-danger">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                            <div class="service-fields mb-3">
+                                <h3 class="heading-2">Service Gallery </h3>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="service-upload">
+                                            <i class="fas fa-cloud-upload-alt"></i> <span>Upload Service Images *</span>
+                                            <input type="file" wire:model.defer="images" multiple>
+                                            @error('image')
+                                            <div class="text-danger">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </div>
+                                        @if ($images)
+                                        <div>
+                                            <ul class="upload-wrap">
+                                                @foreach ($images as $img)
+                                                <li>
+                                                    <div class="upload-images">
+                                                        <img alt="Service Image" src="{{ $img->temporaryUrl() }}">
+                                                    </div>
+                                                </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        @else
+                                        @php
+                                        $imgs = explode('|', $serviceImages);
+                                        @endphp
+                                        @if (count($imgs) > 1)
+                                        <div>
+                                            <ul class="upload-wrap">
+                                                @foreach ($imgs as $image)
+                                                <li>
+                                                    <div class="upload-images">
+                                                        <img alt="Service Image" src="{{ Storage::disk('s3')->url('uploads/services/images/' .$image) }}">
+                                                    </div>
+                                                </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        @else
+                                        <div>
+                                            <ul class="upload-wrap">
+                                                @foreach ($imgs as $image)
+                                                <li>
+                                                    <div class="upload-images">
+                                                        <img src="{{ $service->defaultImage() }}" alt="" class="img-fluid">
+                                                    </div>
+                                                </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        @endif
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="submit-section text-end">
+                                <div wire:loading wire:target="updateService" class="progress-bar progress-bar-striped progress-bar-animated mt-2" role="status" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Processing . . .</div>
+                                <div wire:loading wire:target="images" class="progress-bar progress-bar-striped progress-bar-animated mt-2" role="status" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Uploading . . .</div>
+
+                                <div wire:loading.remove wire:target="images, updateService">
+                                    <button class="btn btn-primary submit-btn" type="submit">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>﻿
+        </div>﻿
 
-</div>
+    </div>
