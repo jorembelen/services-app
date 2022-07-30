@@ -78,12 +78,14 @@
                                         <div class="card-body">
                                             <h5 class="card-title">Services Offered</h5>
                                             <div class="service-offer">
+                                                {{-- {{ $service->providerServices()->toArray() }} --}}
                                                 <ul class="list-bullet">
-                                                    @php
-                                                    $so = explode(',', $service->services_offered);
-                                                    @endphp
-                                                    @foreach ($so as $item)
-                                                    <li>{{ $item }}</li>
+                                                    {{-- @php
+                                                    $sp = $service->providerServices->toArray();
+                                                    $so = explode('|', $service->providerServices);
+                                                    @endphp --}}
+                                                    @foreach ($service->providerServices as $item)
+                                                    <li>{{ $item->name }}</li>
                                                     @endforeach
                                                 </ul>
                                             </div>
@@ -135,11 +137,7 @@
                                     <div class="item-info">
                                         <div class="service-user">
                                             <a href="#">
-                                                @php
-                                                $no = [1,2,3,4,5,6,7,8,9,10];
-                                                $avatar = 'user-' .Arr::random($no) .'.jpg';
-                                                @endphp
-                                                <img src="{{ asset('assets/img/customer/' .$avatar) }}" alt="">
+                                                <img src="{{ $r_service->provider->userAvatar() }}" alt="">
                                             </a>
                                             <span class="service-price">{{ $r_service->price }}</span>
                                         </div>
@@ -188,7 +186,7 @@
                                 <div class="about-provider-img">
                                     <div class="provider-img-wrap">
                                         <a href="#;">
-                                            <img class="img-fluid rounded-circle" alt="" src="/assets/img/provider/provider-01.jpg">
+                                            <img class="img-fluid rounded-circle" alt="" src="{{ $service->provider->userAvatar() }}">
                                         </a>
                                     </div>
                                 </div>
@@ -200,8 +198,8 @@
                             </div>
                             <hr>
                             <div class="provider-info">
-                                <p class="mb-1"><i class="far fa-envelope"></i> <a href="#"><span class="__cf_email__" data-cfemail="7105191e1c10021914030b13140316311409101c011d145f121e1c">[email&#160;protected]</span></a></p>
-                                <p class="mb-"><i class="fas fa-phone-alt"></i> xxxxxxxx33</p>
+                                <p class="mb-1"><i class="far fa-envelope mr-2"></i> <a href="#"><span class="__cf_email__" data-cfemail="7105191e1c10021914030b13140316311409101c011d145f121e1c"> {{ $service->provider->email }}</span></a></p>
+                                <p class="mb-"><i class="fas fa-phone-alt"></i> {{ $service->provider->mobile }}</p>
                             </div>
                         </div>
                     </div>

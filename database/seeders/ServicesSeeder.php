@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\ProviderService;
 use App\Models\Service;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,6 +16,13 @@ class ServicesSeeder extends Seeder
      */
     public function run()
     {
-        Service::factory(22)->create();
+        $services = Service::factory(22)->create();
+
+        $services->each(function ($service) {
+            $service->providerServices()->saveMany(
+                ProviderService::factory(3)->make()
+            );
+        });
+
     }
 }

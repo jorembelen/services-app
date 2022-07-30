@@ -81,6 +81,11 @@ class User extends Authenticatable
         return $this->hasMany(Service::class);
     }
 
+    public function providerServices()
+    {
+        return $this->hasMany(ProviderService::class);
+    }
+
     public function location()
     {
         return $this->hasMany(UserLocation::class);

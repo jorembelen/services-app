@@ -16,7 +16,6 @@ class Service extends Model
         'name',
         'slug',
         'price',
-        'services_offered',
         'description',
         'images',
     ];
@@ -26,10 +25,16 @@ class Service extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function providerServices()
+    {
+        return $this->hasMany(ProviderService::class);
+    }
+
     public function provider()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
 
 
 }

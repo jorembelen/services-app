@@ -92,11 +92,7 @@
                                         <div class="item-info">
                                             <div class="service-user">
                                                 <a href="#">
-                                                    @php
-                                                    $no = [1,2,3,4,5,6,7,8,9,10];
-                                                    $avatar = 'user-' .Arr::random($no) .'.jpg';
-                                                    @endphp
-                                                    <img src="{{ asset('assets/img/customer/' .$avatar) }}" alt="">
+                                                    <img src="{{ $service->provider->userAvatar() }}" alt="">
                                                 </a>
                                                 <span class="service-price">{{ $service->price }}</span>
                                             </div>
@@ -120,10 +116,10 @@
                                         <div class="user-info">
                                             <div class="row">
                                                 <span class="col-auto ser-contact"><i class="fas fa-phone me-1"></i>
-                                                    <span>xxxxxxxx49</span>
+                                                    <span>{{ $service->provider->mobile }}</span>
                                                 </span>
                                                 <span class="col ser-location">
-                                                    <span>Wayne, New Jersey</span> <i class="fas fa-map-marker-alt ms-1"></i>
+                                                    <span>{{ $service->provider->providerLocation() }}</span> <i class="fas fa-map-marker-alt ms-1"></i>
                                                 </span>
                                             </div>
                                         </div>

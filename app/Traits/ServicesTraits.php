@@ -28,7 +28,7 @@ trait ServicesTraits {
         $services = new Service();
 
         $data['user_id'] = auth()->id();
-        $data['services_offered'] = implode(',', $data['services_offered']);
+        $data['services_offered'] = implode('|', $data['services_offered']);
         $images=array();
         if($files = $data['images']){
             foreach($files as $file){

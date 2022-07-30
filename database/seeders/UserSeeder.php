@@ -33,8 +33,21 @@ class UserSeeder extends Seeder
             'password' => 'password',
         ]);
         $svp->location()->create([
-            'province' => 'Cebu',
+            'province' => 'Cebu Province',
             'city' => 'Cebu City',
+        ]);
+
+        $svp2 = User::create([
+            'fname' => 'Jane',
+            'lname' => 'Doe',
+            'email' => 'jane.doe@joreb.net',
+            'mobile' => '09199406148',
+            'role' => 'SVP',
+            'password' => 'password',
+        ]);
+        $svp2->location()->create([
+            'province' => 'Cebu Province',
+            'city' => 'Talisay City',
         ]);
 
         User::create([

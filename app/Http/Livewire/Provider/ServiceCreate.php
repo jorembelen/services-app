@@ -3,11 +3,14 @@
 namespace App\Http\Livewire\Provider;
 
 use App\Models\Category;
+use App\Models\ProviderService;
 use App\Models\Service;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 
 class ServiceCreate extends Component
@@ -72,11 +75,37 @@ class ServiceCreate extends Component
             'services_offered.required' => 'Please add services.',
         ]);
 
-        $services = new Service();
         DB::beginTransaction();
         if($data) {
-            $services->addService($data);
+            $data['user_id'] = auth()->id();
+            $images=array();
+            if($files = $data['images']){
+                foreach($files as $file){
+
+                    // for saving original image
+                    $ImageUpload = Image::make($file);
+                    $originalPath = 'uploads/services/images/';
+                    $name = $file->hashName();
+                    $ImageUpload->resize(640,426)->stream();
+                    Storage::disk('s3')->put($originalPath .$name, $ImageUpload->__toString());
+
+
+                    // for saving to database
+                    $images[]=$name;
+                    $data['images'] = implode("|",$images);
+                }
+            }
+            $service = Service::create($data);
             DB::commit();
+
+            $s = $this->services_offered;
+            foreach($s as $item){
+                ProviderService::create([
+                    'service_id' => $service->id,
+                    'name' => $item,
+                ]);
+            }
+
             $this->dispatchBrowserEvent('swal:modal', [
                 'type' => 'success',
                 'title' => 'New service was added successfully!',

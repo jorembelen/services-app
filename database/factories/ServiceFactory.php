@@ -27,7 +27,7 @@ class ServiceFactory extends Factory
             'name' => $service_name,
             'slug' => $slug,
             'description' => $this->faker->text(500),
-            'services_offered' => $this->faker->randomElement(['Cleaning|Fixing|Maintenance', 'Fitting|Grinding|Maintenance']),
+            // 'services_offered' => $this->faker->randomElement(['Cleaning|Fixing|Maintenance', 'Fitting|Grinding|Maintenance']),
             'price' => $this->faker->numberBetween(100, 500),
             'images' => 'service-' .$this->faker->numberBetween(1,22) .'.jpg',
            ];
