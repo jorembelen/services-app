@@ -81,7 +81,7 @@
                             <div class="row">
                                 @foreach ($featured as $item)
                                 <div class="col-lg-4 col-md-6">
-                                    <a href="search.html">
+                                    <a href="{{ route('home.category-service', $item->slug) }}" >
                                         <div class="cate-widget aos" data-aos="fade-up">
                                             <img src="{{ asset('assets/img/category/' .$item->image) }}" alt="">
                                             <div class="cate-title">
