@@ -121,13 +121,13 @@
                                 </a>
                                 <div class="item-info">
                                     <div class="service-user">
-                                        <a href="javascript:void(0);">
-                                            <img src="assets/img/provider/provider-01.jpg" alt="">
+                                        <a href="j#">
+                                            <img src="{{ $service->provider->userAvatar() }}" alt="">
                                         </a>
                                         <span class="service-price">{{ $service->price }}</span>
                                     </div>
                                     <div class="cate-list">
-                                        <a class="bg-yellow" href="{{ route('home.category-service', $service->category->slug) }}">{{ $service->category->name }}</a>
+                                        <a class="bg-yellow" href="{{ route('home.category-service', $service->category->slug) }}">{{ Str::limit($service->category->name, 15) }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -150,7 +150,7 @@
                                                 <a href="{{ route('svp.service-update', $service->slug) }}" class="text-success"><i class="far fa-edit"></i> Edit</a>
                                             </div>
                                             <div class="col text-end">
-                                                <a href="javascript:void(0);" class="text-danger" data-toggle="modal" data-target="#deleteNotConfirmModal"><i class="far fa-trash-alt"></i> Inactive</a>
+                                                <a href="#" class="text-danger" wire:click.prevent="inactive('{{ $service->id }}')"><i class="far fa-trash-alt"></i> Inactive</a>
                                             </div>
                                         </div>
                                     </div>
@@ -181,17 +181,17 @@
                             <div class="service-widget">
                                 <div class="service-img">
                                     <a href="#">
-                                        <img class="img-fluid serv-img" alt="Service Image" src="{{ asset('assets/img/services/' .$item->images) }}">
+                                        <img class="img-fluid serv-img" alt="Service Image" src="{{ $item->defaultImage() }}">
                                     </a>
                                     <div class="item-info">
                                         <div class="service-user">
-                                            <a href="javascript:void(0);">
-                                                <img src="assets/img/provider/provider-01.jpg" alt="">
+                                            <a href="#">
+                                                <img src="{{ $item->provider->userAvatar() }}" alt="">
                                             </a>
                                             <span class="service-price">{{ $item->price }}</span>
                                         </div>
                                         <div class="cate-list">
-                                            <a class="bg-yellow" href="{{ route('home.category-service', $item->category->slug) }}">{{ $item->category->name }}</a>
+                                            <a class="bg-yellow" href="{{ route('home.category-service', $item->category->slug) }}">{{ Str::limit($item->category->name, 15) }}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -211,10 +211,10 @@
                                         <div class="service-action">
                                             <div class="row">
                                                 <div class="col">
-                                                    <a href="javascript:void(0)" class="si-delete-inactive-service text-danger" data-id="149"><i class="far fa-trash-alt"></i> Delete</a>
+                                                    <button class="btn btn-danger btn-sm" wire:click.prevent="deleteService('{{ $item->id }}')"><i class="far fa-trash-alt"></i> Delete</button>
                                                 </div>
                                                 <div class="col text-end">
-                                                    <a href="javascript:void(0)" class="si-delete-active-service text-success" data-id="149"><i class="fas fa-info-circle"></i> Active</a>
+                                                    <a href="#" wire:click.prevent="active('{{ $item->id }}')"><i class="fas fa-info-circle"></i> Active</a>
                                                 </div>
                                             </div>
                                         </div>

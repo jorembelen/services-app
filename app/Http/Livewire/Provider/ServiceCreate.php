@@ -7,10 +7,10 @@ use App\Models\ProviderService;
 use App\Models\Service;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image;
 
 
 class ServiceCreate extends Component
@@ -69,7 +69,7 @@ class ServiceCreate extends Component
             'category_id' => 'required',
             'services_offered' => 'required',
             'description' => 'required',
-            'images' => 'nullable',
+            'images.*' => 'nullable|image',
         ],[
             'category_id.required' => 'Please choose category.',
             'services_offered.required' => 'Please add services.',
@@ -79,7 +79,7 @@ class ServiceCreate extends Component
         if($data) {
             $data['user_id'] = auth()->id();
             $images=array();
-            if($files = $data['images']){
+            if($files = $this->images){
                 foreach($files as $file){
 
                     // for saving original image

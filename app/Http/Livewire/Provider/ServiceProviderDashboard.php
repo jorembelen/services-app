@@ -49,4 +49,39 @@ class ServiceProviderDashboard extends Component
         $this->showDashboard = false;
     }
 
+    public function inactive(Service $service)
+    {
+        $service->update(['status' => 0]);
+        $this->dispatchBrowserEvent('swal:modal', [
+            'type' => 'success',
+            'title' => $service->name .' was deactivated successfully!',
+            'text' => '',
+        ]);
+        $this->myInactiveServices();
+    }
+
+    public function active(Service $service)
+    {
+        $service->update(['status' => 1]);
+        $this->dispatchBrowserEvent('swal:modal', [
+            'type' => 'success',
+            'title' => $service->name .' was activated successfully!',
+            'text' => '',
+        ]);
+        $this->myActiveServices();
+    }
+
+    public function deleteService(Service $service)
+    {
+        $service->providerServices()->delete();
+        $service->delete();
+        $this->dispatchBrowserEvent('swal:modal', [
+            'type' => 'success',
+            'title' => $service->name .' was deleted successfully!',
+            'text' => '',
+        ]);
+        $this->myActiveServices();
+    }
+
+
 }

@@ -119,14 +119,14 @@
                             </div>
                         </div>
                         <div class="service-fields mb-3">
-                            <h3 class="heading-2">Service Gallery </h3>
+                            <h3 class="heading-2">Service Images </h3>
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="service-upload">
-                                        <i class="fas fa-cloud-upload-alt"></i> <span>Upload Service Images *</span>
+                                        <i class="fas fa-cloud-upload-alt"></i> <span>Upload Images Only *</span>
                                         <input type="file" wire:model.defer="images" multiple>
-                                        @error('image')
-                                        <div class="text-danger">
+                                        @error('images')
+                                        <div class="text-center text-danger">
                                             {{ $message }}
                                         </div>
                                         @enderror

@@ -18,6 +18,7 @@ class Service extends Model
         'price',
         'description',
         'images',
+        'status',
     ];
 
     public function category()

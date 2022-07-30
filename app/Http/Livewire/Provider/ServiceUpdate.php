@@ -86,7 +86,6 @@ class ServiceUpdate extends Component
             'category_id' => 'required',
             'services_offered' => 'required',
             'description' => 'required',
-            'images' => 'nullable',
         ],[
             'category_id.required' => 'Please choose category.',
             'services_offered.required' => 'Please add services.',
@@ -96,8 +95,10 @@ class ServiceUpdate extends Component
         if($data) {
             $data['user_id'] = auth()->id();
             $images=array();
-            if($files = $data['images']){
-
+            if($files = $this->images){
+                $data = $this->validate([
+                    'images.*' => 'required|image'
+                ]);
                 $photos = explode('|', $service->images);
                 foreach($files as $file){
 
@@ -123,7 +124,6 @@ class ServiceUpdate extends Component
                     }
                 }
             }
-
             $service->update($data);
             $service->providerServices()->delete();
             $s = $this->services_offered;
