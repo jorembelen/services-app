@@ -148,7 +148,7 @@
                                     </div>
                                     <div class="service-content">
                                         <h3 class="title">
-                                            <a href="{{ route('home.service_details', $data->slug) }}">{{ $data->tagline }}</a>
+                                            <a href="{{ route('home.service_details', $data->slug) }}">{{ $data->name }}</a>
                                         </h3>
                                         <div class="rating">
                                             <i class="fas fa-star filled"></i>
