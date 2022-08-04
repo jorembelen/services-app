@@ -73,7 +73,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6 d-flex">
+            {{-- <div class="col-md-6 d-flex">
 
                 <!-- Recent Bookings -->
                 <div class="card card-table flex-fill">
@@ -311,7 +311,7 @@
                 </div>
                 <!-- Payments -->
 
-            </div>
+            </div> --}}
         </div>
 
 </div>

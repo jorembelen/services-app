@@ -53,7 +53,7 @@
                                     <a href="#" class="nav-link {{ $descriptionShow ? 'active' : null }}" wire:click.prevent="showDescription">Overview</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link {{ $servicesOffiredShow ? 'active' : null }}" wire:click.prevent="showServOffer">Services Offered</a>
+                                    <a href="#" class="nav-link {{ $servicesOfferedShow ? 'active' : null }}" wire:click.prevent="showServOffer">Services Offered</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="#" class="nav-link {{ $reviewsShow ? 'active' : null }}" wire:click.prevent="showReviews" >Reviews</a>
@@ -72,8 +72,8 @@
                                     </div>
                                 </div>
                                 @endif
-                                @if ($servicesOffiredShow)
-                                <div class="tab-pane {{ $servicesOffiredShow ? 'show active' : null }}">
+                                @if ($servicesOfferedShow)
+                                <div class="tab-pane {{ $servicesOfferedShow ? 'show active' : null }}">
                                     <div class="card">
                                         <div class="card-body">
                                             <h5 class="card-title">Services Offered</h5>
@@ -160,8 +160,8 @@
                                     </div>
                                     <div class="user-info">
                                         <div class="row">
-                                            <span class="col-auto ser-contact"><i class="fas fa-phone me-1"></i> <span>xxxxxxxx30</span></span>
-                                            <span class="col ser-location"><span>Kalispell, Montana</span>  <i class="fas fa-map-marker-alt ms-1"></i></span>
+                                            <span class="col-auto ser-contact"><i class="fas fa-phone me-1"></i> <span>{{ $r_service->provider->mobile }}</span></span>
+                                            <span class="col ser-location"><span>{{ $r_service->provider->providerLocation() }}</span>  <i class="fas fa-map-marker-alt ms-1"></i></span>
                                         </div>
                                     </div>
                                 </div>
@@ -175,9 +175,15 @@
                         <div class="service-amount">
                             <span>{{ $service->price }}</span>
                         </div>
-                        <div class="service-book">
-                            <a href="book-service.html" class="btn btn-primary"> Book Service </a>
-                        </div>
+                    @auth
+                    <div class="service-book">
+                        <a href="{{ route('book.service', $service->slug) }}" class="btn btn-primary {{ auth()->user()->role == 'SVP' ? 'disabled' : null }}"> Book Service </a>
+                    </div>
+                    @else
+                    <div class="service-book">
+                        <a href="#" class="btn btn-primary disabled"> Book Service </a>
+                    </div>
+                    @endauth
                     </div>
                     <div class="card provider-widget clearfix">
                         <div class="card-body">

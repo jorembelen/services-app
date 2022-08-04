@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Livewire\Admin\AdminDashboard;
+use App\Http\Livewire\Admin\Services\ServicesComponent as ServicesServicesComponent;
 use App\Http\Livewire\Categories\CategoriesComponent;
 use App\Http\Livewire\Categories\CategoryServices;
 use App\Http\Livewire\HomeComponent;
@@ -11,6 +12,7 @@ use App\Http\Livewire\Provider\ServiceCreate;
 use App\Http\Livewire\Services\ServiceDetails;
 use App\Http\Livewire\Services\ServicesComponent;
 use App\Http\Livewire\Provider\ServiceUpdate;
+use App\Http\Livewire\User\BookService;
 use App\Http\Livewire\User\UserDashboard;
 use Illuminate\Support\Facades\Route;
 
@@ -32,8 +34,10 @@ Route::get('/service/{service_slug}', ServiceDetails::class)->name('home.service
 
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::group(['middleware' => 'adm' ], function () {
-        Route::get('admin-dashboard', AdminDashboard::class)->name('admin.dashboard');
+    Route::get('book/{service_slug}/service', BookService::class)->name('book.service');
+
+    Route::group(['middleware' => 'usr' ], function () {
+        Route::get('user-dashboard', UserDashboard::class)->name('user.dashboard');
     });
 
     Route::group(['middleware' => 'svp' ], function () {
@@ -42,8 +46,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/service/{serviceSlug}/edit', ServiceUpdate::class)->name('svp.service-update');
     });
 
-    Route::group(['middleware' => 'usr' ], function () {
-        Route::get('user-dashboard', UserDashboard::class)->name('user.dashboard');
+    Route::group(['middleware' => 'adm' ], function () {
+        Route::get('admin-dashboard', AdminDashboard::class)->name('admin.dashboard');
+        Route::get('admin-services', ServicesServicesComponent::class)->name('admin.services');
     });
+
 
 });
