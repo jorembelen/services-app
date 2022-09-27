@@ -24,10 +24,19 @@ class UserSeeder extends Seeder
             'password' => 'password',
         ]);
 
+        User::create([
+            'fname' => 'Admin',
+            'lname' => 'Account',
+            'email' => 'admin@admin.com',
+            'mobile' => '09199406146',
+            'role' => 'ADM',
+            'password' => 'password',
+        ]);
+
         $svp = User::create([
             'fname' => 'John',
             'lname' => 'Doe',
-            'email' => 'john.doe@joreb.net',
+            'email' => 'john@doe.com',
             'mobile' => '09199406147',
             'role' => 'SVP',
             'password' => 'password',
@@ -40,7 +49,7 @@ class UserSeeder extends Seeder
         $svp2 = User::create([
             'fname' => 'Jane',
             'lname' => 'Doe',
-            'email' => 'jane.doe@joreb.net',
+            'email' => 'jane@doe.com',
             'mobile' => '09199406148',
             'role' => 'SVP',
             'password' => 'password',
@@ -53,7 +62,7 @@ class UserSeeder extends Seeder
         User::create([
             'fname' => 'Peter',
             'lname' => 'Parker',
-            'email' => 'peter.parker@joreb.net',
+            'email' => 'peter@parker.com',
             'mobile' => '09199406148',
             'password' => 'password',
         ]);
