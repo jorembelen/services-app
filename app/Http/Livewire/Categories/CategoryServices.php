@@ -28,6 +28,15 @@ class CategoryServices extends AdminComponent
 
     public function favorite(Service $service)
     {
+        if(!auth()->user()) {
+            $this->dispatchBrowserEvent('swal:modal', [
+                'type' => 'error',
+                'title' => 'Please login first to continue.',
+                'text' => '',
+            ]);
+            return redirect()->route('login');
+        }
+
         auth()->user()->addUserFavorites($service->id);
         $msg = $service->userFavorite() ? 'added' : 'removed';
 
