@@ -55,6 +55,7 @@
         {{ $slot }}
 
 
+
         <!-- Footer -->
         <footer class="footer">
 

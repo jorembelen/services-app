@@ -479,7 +479,7 @@
     </div>
     <!-- /User Register Modal -->
 
-    <x-confirmation-alert />
+    <x-sweet-alert />
 
 </div>
 
