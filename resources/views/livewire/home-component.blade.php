@@ -137,7 +137,7 @@
                                         <div class="item-info">
                                             <div class="service-user">
                                                 <a href="#">
-                                                    <img src="{{ $data->provider->userAvatar() }}" alt="">
+                                                    <img src="{{ $data->provider->avatar }}" alt="">
                                                 </a>
                                                 <span class="service-price">{{ $data->price }}</span>
                                             </div>
