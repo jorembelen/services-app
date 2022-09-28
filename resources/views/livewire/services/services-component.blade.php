@@ -119,9 +119,9 @@
                                         </div>
                                         <div class="user-info">
                                             <div class="row">
-                                                <span class="col-auto ser-contact"><i class="fas fa-phone me-1"></i>
+                                                {{-- <span class="col-auto ser-contact"><i class="fas fa-phone me-1"></i>
                                                     <span>{{ $service->provider->mobile }}</span>
-                                                </span>
+                                                </span> --}}
                                                 <span class="col ser-location">
                                                     <span>{{ $service->provider->providerLocation() }}</span> <i class="fas fa-map-marker-alt ms-1"></i>
                                                 </span>

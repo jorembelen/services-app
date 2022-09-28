@@ -20,10 +20,10 @@ class ToggleButton extends Component
     {
        $this->model->setAttribute($this->field, $value)->save();
        $this->dispatchBrowserEvent('alert', [
-        'type' => 'success',
-        'message' => 'Status was successfully updated!',
-        'title' => 'Success',
-    ]);
+            'type' => 'success',
+            'message' => 'Status was successfully updated!',
+            'title' => 'Success',
+        ]);
     }
 
 

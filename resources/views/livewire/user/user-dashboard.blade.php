@@ -7,9 +7,9 @@
                 <div class="col-xl-3 col-md-4">
                     <div class="mb-4">
                         <div class="d-sm-flex flex-row flex-wrap text-center text-sm-start align-items-center">
-                            <img alt="profile image" src="{{ auth()->user()->userAvatar() }}" class="avatar-lg rounded-circle">
+                            <img alt="profile image" src="{{ auth()->user()->avatar }}" class="avatar-lg rounded-circle">
                             <div class="ms-sm-3 ms-md-0 ms-lg-3 mt-2 mt-sm-0 mt-md-2 mt-lg-0">
-                                <h6 class="mb-0">{{ auth()->user()->userFullName() }}</h6>
+                                <h6 class="mb-0">{{ auth()->user()->full_name }}</h6>
                                 <p class="text-muted mb-0">Member Since {{ auth()->user()->created_at->format('M Y') }}</p>
                             </div>
                         </div>
@@ -23,22 +23,17 @@
                             </li>
                             <li class="nav-item {{ $showFavorites ? 'current' : null }}">
                                 <a href="#" class="nav-link {{ $showFavorites ? 'active' : null }}" wire:click.prevent="filteredDashboard('favorites')">
-                                    <i class="fas fa-heart"></i> <span>Favourites</span>
+                                    <i class="fas fa-heart"></i> <span>Favorites</span>
                                 </a>
                             </li>
-                            <li class="nav-item current">
-                                <a href="#" class="nav-link">
+                            <li class="nav-item {{ $showBookings ? 'current' : null }}">
+                                <a href="#" class="nav-link {{ $showBookings ? 'active' : null }}" wire:click.prevent="filteredDashboard('bookings')">
                                     <i class="far fa-calendar-check"></i> <span>My Bookings</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="far fa-user"></i> <span>Profile Settings</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-money-bill-alt"></i> <span>Wallet</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -59,7 +54,7 @@
                         <div class="row">
                             <div class="col-lg-4">
                                 <a href="#" class="dash-widget dash-bg-1">
-                                    <span class="dash-widget-icon">0</span>
+                                    <span class="dash-widget-icon">{{ auth()->user()->user_total_bookings }}</span>
                                     <div class="dash-widget-info">
                                         <span>Bookings</span>
                                     </div>
@@ -98,7 +93,7 @@
                                             <div class="item-info">
                                                 <div class="service-user">
                                                     <a href="j#">
-                                                        <img src="{{ $favorite->service->provider->userAvatar() }}" alt="">
+                                                        <img src="{{ $favorite->service->provider->avatar }}" alt="">
                                                     </a>
                                                     <span class="service-price">{{ $favorite->service->price }}</span>
                                                 </div>
@@ -133,8 +128,80 @@
                         </div>
                     </div>
                 @endif
+
+                @if ($showBookings)
+                <div class="col-xl-9 col-md-8">
+                    <div class="row align-items-center mb-4">
+                        <div class="col">
+                            <h4 class="widget-title mb-0">My Bookings</h4>
+                        </div>
+                        <div class="col-auto">
+                            <div class="sort-by">
+                                <select class="form-control-sm custom-select">
+                                    <option>All</option>
+                                    <option>Pending</option>
+                                    <option>Inprogress</option>
+                                    <option>Complete Request</option>
+                                    <option>Rejected</option>
+                                    <option>Cancelled</option>
+                                    <option>Completed</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    @forelse ($bookings as $booking)
+                        <div class="bookings">
+                            <div class="booking-list">
+                                <div class="booking-widget">
+                                    <a href="service-details.html" class="booking-img">
+                                        <img src="{{ $booking->service->defaultImage() }}" alt="User Image">
+                                    </a>
+                                    <div class="booking-det-info">
+                                        <h3>
+                                            <a href="service-details.html">{{ $booking->service->name }}</a>
+                                        </h3>
+                                        <ul class="booking-details">
+                                            <li>
+                                                <span>Booking Date</span> {{ $booking->formatted_date }} <span class="badge badge-pill badge-prof bg-{{ $booking->status_badge }}">{{ $booking->status }}</span>
+                                            </li>
+                                            <li><span>Booking time</span> {{ $booking->formatted_time }}</li>
+                                            <li><span>Amount</span> {{ $booking->formatted_price }}</li>
+                                            <li><span>Location</span> {{ $booking->location }}</li>
+                                            {{-- <li><span>Phone</span> 412-355-7471</li> --}}
+                                            <li>
+                                                <span>Provider</span>
+                                                <div class="avatar avatar-xs me-1">
+                                                    <img class="avatar-img rounded-circle" alt="User Image" src="{{ auth()->user()->avatar }}">
+                                                </div>
+                                                {{ $booking->service->provider->full_name }}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="booking-action">
+                                    {{-- <a href="#" class="btn btn-sm bg-info-light"><i class="far fa-eye"></i> Chat</a> --}}
+                                    @if (in_array($booking->status, ['pending']))
+                                    <a href="#" class="btn btn-sm bg-danger-light" wire:click.prevent="alertConfirm('{{ $booking->id }}')"><i class="fas fa-times"></i> Cancel the Service</a>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+                        <h3 class="text-center mt-4">No Bookings Available</h3>
+                    @endforelse
+
+                        <ul class="pagination mb-2">
+                           <li>{{ $bookings->links() }}</li>
+                        </ul>
+
+                </div>
+                @endif
+
             </div>
         </div>
 
     </div>﻿
+
+    <x-confirmation-alert />
 </div>

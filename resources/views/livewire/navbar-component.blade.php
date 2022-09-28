@@ -149,16 +149,16 @@
                     <li class="nav-item dropdown has-arrow logged-item">
                         <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown" aria-expanded="false">
                             <span class="user-img">
-                                <img class="rounded-circle" src="{{ auth()->user()->userAvatar() }}" alt="">
+                                <img class="rounded-circle" src="{{ auth()->user()->avatar }}" alt="">
                             </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <div class="user-header">
                                 <div class="avatar avatar-sm">
-                                    <img class="avatar-img rounded-circle" src="{{ auth()->user()->userAvatar() }}" alt="">
+                                    <img class="avatar-img rounded-circle" src="{{ auth()->user()->avatar }}" alt="">
                                 </div>
                                 <div class="user-text">
-                                    <h6>{{ auth()->user()->userFullName() }}</h6>
+                                    <h6>{{ auth()->user()->full_name }}</h6>
                                     <p class="text-muted mb-0">{{ auth()->user()->userRole() }}</p>
                                 </div>
                             </div>

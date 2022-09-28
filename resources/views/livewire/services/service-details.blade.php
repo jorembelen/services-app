@@ -56,9 +56,9 @@
                                 <li class="nav-item">
                                     <a href="#" class="nav-link {{ $descriptionShow ? 'active' : null }}" wire:click.prevent="showDescription">Overview</a>
                                 </li>
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a href="#" class="nav-link {{ $servicesOfferedShow ? 'active' : null }}" wire:click.prevent="showServOffer">Services Offered</a>
-                                </li>
+                                </li> --}}
                                 <li class="nav-item">
                                     <a href="#" class="nav-link {{ $reviewsShow ? 'active' : null }}" wire:click.prevent="showReviews" >Reviews</a>
                                 </li>
@@ -128,7 +128,7 @@
                             </div>
                         </div>
                     </div>
-                    <h4 class="card-title">Related Services</h4>
+                    {{-- <h4 class="card-title">Related Services</h4>
                     <div class="service-carousel" wire:ignore>
                         <div class="popular-slider owl-carousel owl-theme">
 
@@ -172,7 +172,7 @@
                             </div>
                             @endforeach
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="col-lg-4 theiaStickySidebar" wire:ignore>
                     <div class="sidebar-widget widget">
