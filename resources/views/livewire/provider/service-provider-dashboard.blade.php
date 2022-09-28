@@ -72,7 +72,7 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <a href="#" class="dash-widget dash-bg-1">
-                            <span class="dash-widget-icon">245</span>
+                            <span class="dash-widget-icon">0</span>
                             <div class="dash-widget-info">
                                 <span>Bookings</span>
                             </div>
@@ -88,7 +88,7 @@
                     </div>
                     <div class="col-lg-4">
                         <a href="#" class="dash-widget dash-bg-3">
-                            <span class="dash-widget-icon">8</span>
+                            <span class="dash-widget-icon">0</span>
                             <div class="dash-widget-info">
                                 <span>Notification</span>
                             </div>

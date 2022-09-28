@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Models\User;
+use App\Models\UserFavorite;
 use App\Models\UserLocation;
 use Illuminate\Support\Facades\Storage;
 
@@ -27,6 +28,17 @@ trait UserTraits {
             }
         }
 
+        public function addUserFavorites($serviceId)
+        {
+            $favorite = UserFavorite::whereuser_id(auth()->id())->whereservice_id($serviceId)->first();
+                if($favorite) {
+                    $favorite->delete();
+                } else {
+                    auth()->user()->favorite()->create([
+                        'service_id' => $serviceId,
+                    ]);
+                }
+        }
 
 
 }

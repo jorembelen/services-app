@@ -16,13 +16,13 @@
                     </div>
                     <div class="widget settings-menu">
                         <ul role="tablist" class="nav nav-tabs">
-                            <li class="nav-item current">
-                                <a href="#" class="nav-link active">
+                            <li class="nav-item {{ $showDashboard ? 'current' : null }}">
+                                <a href="#" class="nav-link {{ $showDashboard ? 'active' : null }}" wire:click.prevent="filteredDashboard('dashboard')">
                                     <i class="fas fa-chart-line"></i> <span>User Dashboard</span>
                                 </a>
                             </li>
-                            <li class="nav-item current">
-                                <a href="#" class="nav-link">
+                            <li class="nav-item {{ $showFavorites ? 'current' : null }}">
+                                <a href="#" class="nav-link {{ $showFavorites ? 'active' : null }}" wire:click.prevent="filteredDashboard('favorites')">
                                     <i class="fas fa-heart"></i> <span>Favourites</span>
                                 </a>
                             </li>
@@ -54,35 +54,87 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-xl-9 col-md-8">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <a href="#" class="dash-widget dash-bg-1">
-                                <span class="dash-widget-icon">223</span>
-                                <div class="dash-widget-info">
-                                    <span>Bookings</span>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-4">
-                            <a href="#" class="dash-widget dash-bg-2">
-                                <span class="dash-widget-icon">16</span>
-                                <div class="dash-widget-info">
-                                    <span>Reviews</span>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-4">
-                            <a href="#" class="dash-widget dash-bg-3">
-                                <span class="dash-widget-icon">1</span>
-                                <div class="dash-widget-info">
-                                    <span>Notification</span>
-                                </div>
-                            </a>
+                @if ($showDashboard)
+                    <div class="col-xl-9 col-md-8">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <a href="#" class="dash-widget dash-bg-1">
+                                    <span class="dash-widget-icon">0</span>
+                                    <div class="dash-widget-info">
+                                        <span>Bookings</span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-lg-4">
+                                <a href="#" class="dash-widget dash-bg-2">
+                                    <span class="dash-widget-icon">0</span>
+                                    <div class="dash-widget-info">
+                                        <span>Reviews</span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-lg-4">
+                                <a href="#" class="dash-widget dash-bg-3">
+                                    <span class="dash-widget-icon">0</span>
+                                    <div class="dash-widget-info">
+                                        <span>Notification</span>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
+                @if ($showFavorites)
+                    <div class="col-xl-9 col-md-8">
+                        <h4 class="widget-title">My Favorites</h4>
+                        <div class="row">
+                            @forelse ($favorites as $favorite)
+                                <div class="col-lg-4 col-md-6 d-flex">
+                                    <div class="service-widget flex-fill">
+                                        <div class="service-img">
+                                            <a href="{{ route('home.service_details', $favorite->service->slug) }}">
+                                                <img class="img-fluid serv-img" alt="Service Image" src="{{ $favorite->service->defaultImage() }}">
+                                            </a>
+                                            <div class="item-info">
+                                                <div class="service-user">
+                                                    <a href="j#">
+                                                        <img src="{{ $favorite->service->provider->userAvatar() }}" alt="">
+                                                    </a>
+                                                    <span class="service-price">{{ $favorite->service->price }}</span>
+                                                </div>
+                                                <div class="cate-list">
+                                                    <a class="bg-yellow" href="{{ route('home.category-service', $favorite->service->category->slug) }}">{{ Str::limit($favorite->service->category->name, 15) }}</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="service-content">
+                                            <h3 class="title">
+                                                <a href="{{ route('home.service_details', $favorite->service->slug) }}">{{ $favorite->service->name }} </a>
+                                            </h3>
+                                            <div class="rating">
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <span class="d-inline-block average-rating">(4.3)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @empty
+                                <h3 class="text-center mt-4">No Favorites Available</h3>
+                            @endforelse
+                            <ul class="pagination mb-2">
+                                <li>
+                                    {{ $favorites->links() }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
+
     </div>﻿
 </div>

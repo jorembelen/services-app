@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Models\Service;
+use App\Models\UserFavorite;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
@@ -51,6 +52,14 @@ trait ServicesTraits {
 
     }
 
+    public function userFavorite()
+    {
+        $favorite = UserFavorite::whereuser_id(auth()->id())->whereservice_id($this->id)->first();
+            if($favorite) {
+                return true;
+            }
 
+            return false;
+    }
 
 }

@@ -96,4 +96,11 @@ class User extends Authenticatable
         return $this->services();
     }
 
+    public function favorite()
+    {
+        return $this->hasMany(UserFavorite::class);
+    }
+
+
+
 }

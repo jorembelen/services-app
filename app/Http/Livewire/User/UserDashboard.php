@@ -2,12 +2,32 @@
 
 namespace App\Http\Livewire\User;
 
-use Livewire\Component;
+use App\Http\Livewire\Admin\AdminComponent;
+use App\Models\UserFavorite;
 
-class UserDashboard extends Component
+class UserDashboard extends AdminComponent
 {
+    public $showDashboard = true;
+    public $showFavorites = false;
+
     public function render()
     {
-        return view('livewire.user.user-dashboard');
+        $favorites = UserFavorite::with('user', 'service')->whereuser_id(auth()->id())->latest()->paginate(12);
+
+        return view('livewire.user.user-dashboard', compact('favorites'));
     }
+
+    public function filteredDashboard($value)
+    {
+        if($value == 'favorites') {
+            $this->showFavorites = !$this->showFavorites;
+            $this->showDashboard = false;
+        } elseif ($value == 'dashboard'){
+            $this->showDashboard = !$this->showDashboard;
+            $this->showFavorites = false;
+
+        }
+
+    }
+
 }

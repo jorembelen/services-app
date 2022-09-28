@@ -10,8 +10,12 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <h1>{{ $service->name }}</h1>
                                 <div class="fav-btn fav-btn-big">
-                                    <a href="#" class="fav-icon with-border">
+                                    <a href="#" class="fav-icon with-border" wire:click.prevent="favorite('{{ $service->id }}')">
+                                        @if ($service->userFavorite())
+                                        <i class="fas fa-heart" style="color: red"></i>
+                                        @else
                                         <i class="fas fa-heart"></i>
+                                        @endif
                                     </a>
                                 </div>
                             </div>
@@ -228,4 +232,5 @@
         </div>
     </div>﻿
 
+    <x-confirmation-alert />
 </div>

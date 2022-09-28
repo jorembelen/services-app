@@ -2,15 +2,13 @@
 
 namespace App\Http\Livewire\Services;
 
+use App\Http\Livewire\Admin\AdminComponent;
 use App\Models\Service;
+use App\Models\UserFavorite;
 use Illuminate\Support\Facades\DB;
-use Livewire\Component;
-use Livewire\WithPagination;
 
-class ServicesComponent extends Component
+class ServicesComponent extends AdminComponent
 {
-    use WithPagination;
-    protected $paginationTheme = 'bootstrap';
 
     public function render()
     {
@@ -19,4 +17,17 @@ class ServicesComponent extends Component
 
         return view('livewire.services.services-component', compact('services', 'totalServices'));
     }
+
+    public function favorite(Service $service)
+    {
+        auth()->user()->addUserFavorites($service->id);
+        $msg = $service->userFavorite() ? 'added' : 'removed';
+
+        $this->dispatchBrowserEvent('alert', [
+            'type' => 'success',
+            'message' => 'Service was ' .$msg .' to favorites!',
+            'title' => 'Success',
+        ]);
+    }
+
 }

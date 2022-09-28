@@ -85,8 +85,12 @@
                                             <img class="img-fluid serv-img" alt="Service Image" src="{{ $service->defaultImage() }}">
                                         </a>
                                         <div class="fav-btn">
-                                            <a href="#" class="fav-icon">
+                                            <a href="#" class="fav-icon" wire:click.prevent="favorite('{{ $service->id }}')">
+                                                @if ($service->userFavorite())
+                                                <i class="fas fa-heart" style="color: red"></i>
+                                                @else
                                                 <i class="fas fa-heart"></i>
+                                                @endif
                                             </a>
                                         </div>
                                         <div class="item-info">
@@ -97,13 +101,13 @@
                                                 <span class="service-price">{{ $service->price }}</span>
                                             </div>
                                             <div class="cate-list">
-                                                <a class="bg-yellow" href="#">{{ $service->category->name }}</a>
+                                                <a class="bg-yellow" href="#">{{ $service->category->name }} </a>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="service-content">
                                         <h3 class="title">
-                                            <a href="{{ route('home.service_details', $service->slug) }}">{{ $service->name }}</a>
+                                            <a href="{{ route('home.service_details', $service->slug) }}">{{ $service->name }}  </a>
                                         </h3>
                                         <div class="rating">
                                             <i class="fas fa-star filled"></i>
@@ -134,6 +138,8 @@
             </div>
         </div>
     </div>﻿
+
+    <x-confirmation-alert />
 </div>
 
 @push('home-js')
