@@ -201,7 +201,7 @@
                                     </div>
                                 </div>
                                 <div class="provider-details">
-                                    <a href="#;" class="ser-provider-name">{{ $service->provider->userFullName() }}</a>
+                                    <a href="#;" class="ser-provider-name">{{ $service->provider->full_name }}</a>
                                     <p class="last-seen"><i class="fas fa-circle online"></i> Online</p>
                                     <p class="text-muted mb-1">Member Since {{ $service->provider->userMembership() }}</p>
                                 </div>
