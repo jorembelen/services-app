@@ -47,9 +47,9 @@ class UserSeeder extends Seeder
         ]);
 
         $svp2 = User::create([
-            'fname' => 'Jane',
-            'lname' => 'Doe',
-            'email' => 'jane@doe.com',
+            'fname' => 'Customer',
+            'lname' => 'One',
+            'email' => 'customer1@gmail.com',
             'mobile' => '09199406148',
             'role' => 'SVP',
             'password' => 'password',
@@ -67,6 +67,13 @@ class UserSeeder extends Seeder
             'password' => 'password',
         ]);
 
+        User::create([
+            'fname' => 'User',
+            'lname' => 'One',
+            'email' => 'user1@gmail.com',
+            'mobile' => '09199406148',
+            'password' => 'password',
+        ]);
 
     }
 
