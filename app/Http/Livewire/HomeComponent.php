@@ -29,7 +29,7 @@ class HomeComponent extends Component
             ->get();
         }
 
-        return view('livewire.home-component', compact('featured', 'featuredServices'))->extends('layouts.master');
+        return view('livewire.home-component', compact('featured', 'featuredServices'));
     }
 
 

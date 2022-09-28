@@ -2,10 +2,10 @@
 
 namespace App\Http\Livewire\Admin\Services;
 
+use App\Http\Livewire\Admin\AdminComponent;
 use App\Models\Service;
-use Livewire\Component;
 
-class ServicesComponent extends Component
+class ServicesComponent extends AdminComponent
 {
     // public bool $status;
     // public string $field;
@@ -13,7 +13,7 @@ class ServicesComponent extends Component
 
     public function render()
     {
-        $services = Service::query()->latest()->get();
+        $services = Service::query()->latest()->paginate(10);
 
         return view('livewire.admin.services.services-component', compact('services'))->extends('layouts.admin');
     }

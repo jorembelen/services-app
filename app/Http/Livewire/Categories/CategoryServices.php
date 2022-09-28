@@ -2,15 +2,12 @@
 
 namespace App\Http\Livewire\Categories;
 
+use App\Http\Livewire\Admin\AdminComponent;
 use App\Models\Category;
 use App\Models\Service;
-use Livewire\Component;
-use Livewire\WithPagination;
 
-class CategoryServices extends Component
+class CategoryServices extends AdminComponent
 {
-    use WithPagination;
-    protected $paginationTheme = 'bootstrap';
     public $categorySlug, $catName, $catId, $catCount;
 
     public function mount($categorySlug)
@@ -26,6 +23,6 @@ class CategoryServices extends Component
     {
         $services = Service::wherecategory_id($this->catId)->latest()->paginate(12);
 
-        return view('livewire.categories.category-services', compact('services'))->extends('layouts.master');
+        return view('livewire.categories.category-services', compact('services'));
     }
 }

@@ -59,7 +59,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-hover table-center mb-0 datatable">
+                                <table class="table table-hover table-center mb-0">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -83,9 +83,10 @@
                                             <td>{{ $service->price }}</td>
                                             <td>
                                                 <div class="status-toggle">
-                                                    <input id="{{ $service->id }}" wire:model="status" class="check" type="checkbox" {{ $service->status === 1 ? 'checked' : null }}>
-                                                    <label for="{{ $service->id }}" class="checktoggle" >checkbox</label>
+                                                    @livewire('admin.toggle-button', ['model' => $service, 'field' => 'status'], key($service->id))
                                                 </div>
+
+
                                             </td>
                                             <td></td>
                                            </tr>
@@ -93,10 +94,15 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <ul class="pagination mt-2">
+                                <li>{{ $services->links() }}</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <x-confirmation-alert />
 
 </div>
+

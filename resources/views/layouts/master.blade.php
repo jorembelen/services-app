@@ -29,6 +29,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/personal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
+    @stack('styles')
+
     @livewireStyles
 </head>
 
@@ -50,9 +52,8 @@
 
     <div class="main-wrapper">
 
+        {{ $slot }}
 
-        @yield('content')
-        @include('scripts.sweet-alert')
 
         <!-- Footer -->
         <footer class="footer">
@@ -189,117 +190,6 @@
 
     </div>
 
-    {{-- <!-- Provider Register Modal -->
-    <div class="modal account-modal fade multi-step" id="provider-register" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header p-0 border-0">
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="login-header">
-                        <h3>Join as a Provider</h3>
-                    </div>
-
-                    <!-- Register Form -->
-                    <form action="https://html.truelysell.com/template/index.html">
-                        <div class="form-group form-focus">
-                            <label class="focus-label">Name</label>
-                            <input type="text" class="form-control" placeholder="johndoe@exapmle.com">
-                        </div>
-                        <div class="form-group form-focus">
-                            <label class="focus-label">Mobile Number</label>
-                            <input type="text" class="form-control" placeholder="986 452 1236">
-                        </div>
-                        <div class="form-group form-focus">
-                            <label class="focus-label">Create Password</label>
-                            <input type="password" class="form-control" placeholder="********">
-                        </div>
-                        <div class="text-end">
-                            <a class="forgot-link" href="#">Already have an account?</a>
-                        </div>
-                        <div class="d-grid">
-                            <button class="btn btn-primary btn-block btn-lg login-btn" type="submit">Signup</button>
-                        </div>
-                        <div class="login-or">
-                            <span class="or-line"></span>
-                            <span class="span-or">or</span>
-                        </div>
-                        <div class="row form-row social-login">
-                            <div class="col-6 d-grid">
-                                <a href="#" class="btn btn-facebook btn-block"><i class="fab fa-facebook-f me-1"></i> Login</a>
-                            </div>
-                            <div class="col-6 d-grid">
-                                <a href="#" class="btn btn-google btn-block"><i class="fab fa-google me-1"></i> Login</a>
-                            </div>
-                        </div>
-                    </form>
-                    <!-- /Register Form -->
-
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /Provider Register Modal -->
-
-    <!-- User Register Modal -->
-    <div class="modal account-modal fade multi-step" id="user-register" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header p-0 border-0">
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="login-header">
-                        <h3>Join as a User</h3>
-                    </div>
-
-                    <!-- Register Form -->
-                    <form action="https://html.truelysell.com/template/index.html">
-                        <div class="form-group form-focus">
-                            <label class="focus-label">Name</label>
-                            <input type="text" class="form-control" placeholder="johndoe@exapmle.com">
-                        </div>
-                        <div class="form-group form-focus">
-                            <label class="focus-label">Mobile Number</label>
-                            <input type="text" class="form-control" placeholder="986 452 1236">
-                        </div>
-                        <div class="form-group form-focus">
-                            <label class="focus-label">Create Password</label>
-                            <input type="password" class="form-control" placeholder="********">
-                        </div>
-                        <div class="text-end">
-                            <a class="forgot-link" href="#">Already have an account?</a>
-                        </div>
-                        <div class="d-grid">
-                            <button class="btn btn-primary btn-block btn-lg login-btn" type="submit">Signup</button>
-                        </div>
-                        <div class="login-or">
-                            <span class="or-line"></span>
-                            <span class="span-or">or</span>
-                        </div>
-                        <div class="row form-row social-login">
-                            <div class="col-6 d-grid">
-                                <a href="#" class="btn btn-facebook btn-block"><i class="fab fa-facebook-f me-1"></i> Login</a>
-                            </div>
-                            <div class="col-6 d-grid">
-                                <a href="#" class="btn btn-google btn-block"><i class="fab fa-google me-1"></i> Login</a>
-                            </div>
-                        </div>
-                    </form>
-                    <!-- /Register Form -->
-
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /User Register Modal --> --}}
-
-
 
     <!-- jQuery -->
     <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
@@ -322,6 +212,7 @@
     <script src="{{ asset('assets/js/script.js') }}"></script>
 
     @stack('home-js')
+    @stack('js')
 
     @livewireScripts
 </body>

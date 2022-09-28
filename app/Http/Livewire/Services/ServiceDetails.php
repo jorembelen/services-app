@@ -28,7 +28,7 @@ class ServiceDetails extends Component
            session()->flash('message', 'Sorry, No data found!');
         }
 
-        return view('livewire.services.service-details', compact('service', 'r_services'))->extends('layouts.master');
+        return view('livewire.services.service-details', compact('service', 'r_services'));
     }
 
     public function showServOffer()

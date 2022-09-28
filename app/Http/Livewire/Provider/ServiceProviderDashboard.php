@@ -2,16 +2,13 @@
 
 namespace App\Http\Livewire\Provider;
 
+use App\Http\Livewire\Admin\AdminComponent;
 use App\Models\Service;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Livewire\Component;
-use Livewire\WithPagination;
 
-class ServiceProviderDashboard extends Component
+class ServiceProviderDashboard extends AdminComponent
 {
-    use WithPagination;
-    protected $paginationTheme = 'bootstrap';
 
     public $showInactiveServices = false;
     public $showActiveServices = false;
@@ -19,15 +16,15 @@ class ServiceProviderDashboard extends Component
 
     public function render()
     {
-        $services = Service::whereuser_id(auth()->id())
-        ->wherestatus(1)
-        ->latest()->paginate(12);
+        $services = Service::with('provider', 'category')->whereuser_id(auth()->id())
+            ->wherestatus(1)
+            ->latest()->paginate(12);
 
-        $inactive_services = Service::whereuser_id(auth()->id())
-        ->wherestatus(0)
-        ->latest()->paginate(12);
+        $inactive_services = Service::with('provider', 'category')->whereuser_id(auth()->id())
+            ->wherestatus(0)
+            ->latest()->paginate(12);
 
-        return view('livewire.provider.service-provider-dashboard', compact('services', 'inactive_services'))->extends('layouts.master');
+        return view('livewire.provider.service-provider-dashboard', compact('services', 'inactive_services'));
     }
 
     public function dashboard()
@@ -37,40 +34,37 @@ class ServiceProviderDashboard extends Component
         $this->showInactiveServices = false;
     }
 
-    public function myActiveServices()
+    public function filteredServices($value)
     {
-        $this->showActiveServices = true;
-        $this->showInactiveServices = false;
+        if($value == 'active') {
+            $this->showActiveServices = true;
+            $this->showInactiveServices = false;
+        } else {
+            $this->showInactiveServices = true;
+            $this->showActiveServices = false;
+        }
         $this->showDashboard = false;
-    }
-
-    public function myInactiveServices()
-    {
-        $this->showInactiveServices = true;
-        $this->showActiveServices = false;
-        $this->showDashboard = false;
+        $this->resetPage();
     }
 
     public function inactive(Service $service)
     {
         $service->update(['status' => 0]);
-        $this->dispatchBrowserEvent('swal:modal', [
+        $this->dispatchBrowserEvent('alert', [
             'type' => 'success',
-            'title' => $service->name .' was deactivated successfully!',
-            'text' => '',
+            'message' => 'Service was successfully deactivated!',
+            'title' => 'Success',
         ]);
-        $this->myInactiveServices();
     }
 
     public function active(Service $service)
     {
         $service->update(['status' => 1]);
-        $this->dispatchBrowserEvent('swal:modal', [
+        $this->dispatchBrowserEvent('alert', [
             'type' => 'success',
-            'title' => $service->name .' was activated successfully!',
-            'text' => '',
+            'message' => 'Service was successfully activated!',
+            'title' => 'Success',
         ]);
-        $this->myActiveServices();
     }
 
     public function deleteService(Service $service)
@@ -91,8 +85,8 @@ class ServiceProviderDashboard extends Component
                 DB::commit();
                 $this->dispatchBrowserEvent('swal:modal', [
                     'type' => 'success',
-                    'title' => $service->name .' was deleted successfully!',
-                    'text' => '',
+                    'message' => 'Service was successfully deleted!',
+                    'title' => 'Success',
                 ]);
                 $this->myActiveServices();
             }

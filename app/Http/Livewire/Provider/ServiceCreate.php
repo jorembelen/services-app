@@ -51,7 +51,7 @@ class ServiceCreate extends Component
     {
         $categories = Category::query()->get(['id', 'name']);
 
-        return view('livewire.provider.service-create', compact('categories'))->extends('layouts.master');
+        return view('livewire.provider.service-create', compact('categories'));
     }
 
     public function generateSlug()

@@ -23,7 +23,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link {{ $showActiveServices ? 'active' : null }}" wire:click.prevent="myActiveServices">
+                            <a href="#" class="nav-link {{ $showActiveServices ? 'active' : null }}" wire:click.prevent="filteredServices('active')">
                                 <i class="far fa-address-book"></i> <span>My Services</span>
                             </a>
                         </li>
@@ -79,7 +79,7 @@
                         </a>
                     </div>
                     <div class="col-lg-4">
-                        <a href="#" class="dash-widget dash-bg-2" wire:click.prevent="myActiveServices">
+                        <a href="#" class="dash-widget dash-bg-2" wire:click.prevent="filteredServices('active')">
                             <span class="dash-widget-icon">{{ auth()->user()->services->count() }}</span>
                             <div class="dash-widget-info">
                                 <span>Services</span>
@@ -104,10 +104,10 @@
                 <h4 class="widget-title">My Services</h4>
                 <ul class="nav nav-tabs menu-tabs">
                     <li class="nav-item {{ $showActiveServices ? 'active' : null }}">
-                        <a class="nav-link " href="#" wire:click.prevent="myActiveServices">Active Services</a>
+                        <a class="nav-link " href="#" wire:click.prevent="filteredServices('active')">Active Services</a>
                     </li>
                     <li class="nav-item {{ $showInactiveServices ? 'active' : null }}">
-                        <a class="nav-link " href="#" wire:click.prevent="myInactiveServices">Inactive Services</a>
+                        <a class="nav-link " href="#" wire:click.prevent="filteredServices('inactive')">Inactive Services</a>
                     </li>
                 </ul>
                 <div class="row">
@@ -159,7 +159,11 @@
                         </div>
                     </div>
                     @endforeach
-                    {{ $services->links() }}
+                    <ul class="pagination mb-2">
+                        <li>
+                            {{ $services->links() }}
+                        </li>
+                    </ul>
                 </div>
             </div>
             @endif
@@ -169,10 +173,10 @@
                 <h4 class="widget-title">My Services</h4>
                 <ul class="nav nav-tabs menu-tabs">
                     <li class="nav-item {{ $showActiveServices ? 'active' : null }}">
-                        <a class="nav-link " href="#" wire:click.prevent="myActiveServices">Active Services</a>
+                        <a class="nav-link " href="#" wire:click.prevent="filteredServices('active')">Active Services</a>
                     </li>
                     <li class="nav-item {{ $showInactiveServices ? 'active' : null }}">
-                        <a class="nav-link " href="#" wire:click.prevent="myInactiveServices">Inactive Services</a>
+                        <a class="nav-link " href="#" wire:click.prevent="filteredServices('inactive')">Inactive Services</a>
                     </li>
                 </ul>
                 <div class="row">
@@ -223,11 +227,18 @@
                             </div>
                         </div>
                     @endforeach
+                    <ul class="pagination mb-2">
+                        <li>
+                            {{ $inactive_services->links() }}
+                        </li>
+                    </ul>
                 </div>
             </div>
             @endif
 
         </div>
     </div>
+
+    <x-confirmation-alert />
 
 </div>

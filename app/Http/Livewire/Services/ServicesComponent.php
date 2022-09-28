@@ -17,6 +17,6 @@ class ServicesComponent extends Component
         $services = Service::query()->latest()->paginate(12);
         $totalServices = DB::table('services')->pluck('id')->count();
 
-        return view('livewire.services.services-component', compact('services', 'totalServices'))->extends('layouts.master');
+        return view('livewire.services.services-component', compact('services', 'totalServices'));
     }
 }

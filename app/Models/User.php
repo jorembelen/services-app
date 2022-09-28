@@ -91,5 +91,9 @@ class User extends Authenticatable
         return $this->hasMany(UserLocation::class);
     }
 
+    public function userServices()
+    {
+        return $this->services();
+    }
 
 }

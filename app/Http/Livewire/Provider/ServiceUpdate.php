@@ -74,7 +74,7 @@ class ServiceUpdate extends Component
     public function render()
     {
         $categories = Category::query()->get(['id', 'name']);
-        return view('livewire.provider.service-update', compact('categories'))->extends('layouts.master');
+        return view('livewire.provider.service-update', compact('categories'));
     }
 
     public function updateService(Service $service)
@@ -137,10 +137,10 @@ class ServiceUpdate extends Component
 
 
 
-            $this->dispatchBrowserEvent('swal:modal', [
+            $this->dispatchBrowserEvent('alert', [
                 'type' => 'success',
-                'title' => $service->name .' was updated successfully!',
-                'text' => '',
+                'message' => $service->name .' was updated successfully!',
+                'title' => 'Success',
             ]);
             return redirect()->route('svp.dashboard');
         }else{
