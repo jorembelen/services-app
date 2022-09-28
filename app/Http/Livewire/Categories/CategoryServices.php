@@ -25,4 +25,17 @@ class CategoryServices extends AdminComponent
 
         return view('livewire.categories.category-services', compact('services'));
     }
+
+    public function favorite(Service $service)
+    {
+        auth()->user()->addUserFavorites($service->id);
+        $msg = $service->userFavorite() ? 'added' : 'removed';
+
+        $this->dispatchBrowserEvent('alert', [
+            'type' => 'success',
+            'message' => 'Service was ' .$msg .' to favorites!',
+            'title' => 'Success',
+        ]);
+    }
+
 }

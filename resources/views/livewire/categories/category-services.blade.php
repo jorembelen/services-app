@@ -29,8 +29,12 @@
                                     <img class="img-fluid serv-img" alt="Service Image" src="{{ $service->defaultImage() }}">
                                 </a>
                                 <div class="fav-btn">
-                                    <a href="#" class="fav-icon">
+                                    <a href="#" class="fav-icon" wire:click.prevent="favorite('{{ $service->id }}')">
+                                        @if ($service->userFavorite())
+                                        <i class="fas fa-heart" style="color: red"></i>
+                                        @else
                                         <i class="fas fa-heart"></i>
+                                        @endif
                                     </a>
                                 </div>
                                 <div class="item-info">
@@ -78,4 +82,5 @@
         </div>﻿
     </div>﻿
 
+    <x-confirmation-alert />
 </div>
