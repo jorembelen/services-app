@@ -196,7 +196,7 @@
                                 <div class="about-provider-img">
                                     <div class="provider-img-wrap">
                                         <a href="#;">
-                                            <img class="img-fluid rounded-circle" alt="" src="{{ $service->provider->userAvatar() }}">
+                                            <img class="img-fluid rounded-circle" alt="" src="{{ $service->provider->avatar }}">
                                         </a>
                                     </div>
                                 </div>
