@@ -274,7 +274,7 @@
                                         <li><span>Booking time</span> {{ $booking->formatted_time }}</li>
                                         <li><span>Amount</span> {{ $booking->formatted_price }}</li>
                                         <li><span>Location</span> {{ $booking->location }}</li>
-                                        {{-- <li><span>Phone</span> 412-355-7471</li> --}}
+                                        <li><span>Notes</span> {{ $booking->notes }}</li>
                                         <li>
                                             <span>Provider</span>
                                             <div class="avatar avatar-xs me-1">
