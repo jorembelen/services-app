@@ -212,14 +212,17 @@
     <!-- Custom JS -->
     <script src="{{ asset('assets/js/script.js') }}"></script>
 
-    <!-- Alpine Plugins -->
-    <script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     @stack('home-js')
     @stack('js')
 
     @livewireScripts
+
+    <!-- Alpine Plugins -->
+    @stack('alpine-plugins')
+    <!-- Alpine Core -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
 </body>
 
 </html>

@@ -29,6 +29,7 @@ class User extends Authenticatable
         'role',
         'status',
         'password',
+        'profile_photo_path',
     ];
 
     /**
@@ -62,11 +63,10 @@ class User extends Authenticatable
 
     public function getAvatarAttribute()
     {
-        $user = User::find($this->id);
-        if($user->profile_photo_path == null){
-            return asset('assets/img/provider/no-image.png');
+        if($this->profile_photo_path == null){
+            return asset('assets/img/noimage.png');
         }else{
-            return Storage::disk('s3')->url('uploads/avatar/' .$user->profile_photo_path);
+            return Storage::disk('s3')->url('uploads/avatars/' .$this->profile_photo_path);
         }
     }
 
@@ -86,6 +86,20 @@ class User extends Authenticatable
        }
     }
 
+    public function isAdmin()
+    {
+        return $this->role == 'ADM';
+    }
+
+    public function isProvider()
+    {
+        return $this->role == 'SVP';
+    }
+
+    public function isUser()
+    {
+        return $this->role == 'USR';
+    }
 
     public function services()
     {

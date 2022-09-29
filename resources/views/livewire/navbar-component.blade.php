@@ -149,30 +149,22 @@
                     <li class="nav-item dropdown has-arrow logged-item">
                         <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown" aria-expanded="false">
                             <span class="user-img">
-                                <img class="rounded-circle" src="{{ auth()->user()->avatar }}" alt="">
+                                <img class="rounded-circle" src="{{ auth()->user()->avatar }}" alt="profile_image" id="profileImage">
                             </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <div class="user-header">
                                 <div class="avatar avatar-sm">
-                                    <img class="avatar-img rounded-circle" src="{{ auth()->user()->avatar }}" alt="">
+                                    <img class="avatar-img rounded-circle" src="{{ auth()->user()->avatar }}" alt="profile_image">
                                 </div>
                                 <div class="user-text">
                                     <h6>{{ auth()->user()->full_name }}</h6>
                                     <p class="text-muted mb-0">{{ auth()->user()->userRole() }}</p>
                                 </div>
                             </div>
-                            @if (auth()->user()->role == 'ADM')
-                            <a class="dropdown-item" href="{{ route('admin.dashboard') }}">Dashboard</a>
-                            @elseif (auth()->user()->role == 'SVP')
-                            <a class="dropdown-item" href="{{ route('svp.dashboard', 'dashboard') }}">Dashboard</a>
-                            @else
-                            <a class="dropdown-item" href="{{ route('user.dashboard', 'dashboard') }}">Dashboard</a>
-                            @endif
-                            <a class="dropdown-item" href="{{ route('user.dashboard', 'favorites') }}">Favorites</a>
-                            <a class="dropdown-item" href="{{ route('user.dashboard', 'bookings') }}" x-ref="bookingsLink">My Bookings</a>
-                            <a class="dropdown-item" href="#">Profile Settings</a>
-                            <a class="dropdown-item" href="#">Book Services</a>
+
+                            @include('layouts.includes.header')
+
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 Logout
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

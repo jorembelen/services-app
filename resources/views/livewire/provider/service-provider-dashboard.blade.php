@@ -8,7 +8,7 @@
             <div class="col-xl-3 col-md-4">
                 <div class="mb-4">
                     <div class="d-sm-flex flex-row flex-wrap text-center text-sm-start align-items-center">
-                        <img alt="profile image" src="{{ auth()->user()->avatar }}" class="avatar-lg rounded-circle">
+                        <img alt="profile image" src="{{ auth()->user()->avatar }}" class="avatar-lg rounded-circle" id="profileImage">
                         <div class="ms-sm-3 ms-md-0 ms-lg-3 mt-2 mt-sm-0 mt-md-2 mt-lg-0">
                             <h6 class="mb-0">{{ auth()->user()->full_name }}</h6>
                             <p class="text-muted mb-0">Member Since {{ auth()->user()->created_at->format('M Y') }}</p>
@@ -32,8 +32,8 @@
                                 <i class="far fa-calendar-check"></i> <span>Booking List</span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
+                        <li class="nav-item {{ $currentTab === 'profiile' ? 'current' : null }}">
+                            <a href="#" class="nav-link {{ $currentTab === 'profile' ? 'active' : null }}" wire:click.prevent="filteredDashboard('profile')">
                                 <i class="far fa-user"></i> <span>Profile Settings</span>
                             </a>
                         </li>
@@ -310,9 +310,110 @@
             </div>
             @endif
 
+            @if ($currentTab === 'profile')
+            <div class="col-xl-9 col-md-8">
+                <div class="tab-content pt-0">
+                    <div class="tab-pane show active" id="user_profile_settings">
+                        <div class="widget">
+                            <h4 class="widget-title">Profile Settings</h4>
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <h5 class="form-title">Basic Information</h5>
+                                    </div>
+                                    <div class="form-group col-xl-12">
+                                        <div class="media align-items-center mb-3 d-flex" x-data="{ imagePreview: '' }">
+                                            <input class="d-none"  type="file" x-ref="image" wire:model="image"
+                                                x-on:change="
+                                                    reader = new FileReader();
+                                                    reader.onload = (event) => {
+                                                        imagePreview = event.target.result;
+                                                        document.getElementById('profileImage').src = `${imagePreview}`;
+                                                    };
+                                                    reader.readAsDataURL($refs.image.files[0]);
+                                                "
+                                            />
+                                            <img x-on:click="$refs.image.click()" class="user-image img-circle" x-bind:src="imagePreview ? imagePreview : '{{ auth()->user()->avatar }}'" alt="">
+                                            <div class="media-body">
+                                                <h5 class="mb-0">{{ auth()->user()->full_name }}</h5>
+                                            </div>
+                                        </div>
+                                            <img src="{{ asset('assets/loading.gif') }}" alt="" height="70px" wire:loading wire:target="image">
+                                    </div>
+                                </div>
+                            <form wire:submit.prevent="updateProfile">
+                                <div class="row">
+                                    <div class="form-group col-xl-6">
+                                        <label class="me-sm-2">First Name</label>
+                                        <input class="form-control" type="text" wire:model.defer="state.fname">
+                                        @error('fname')
+                                        <div class="text-danger">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group col-xl-6">
+                                        <label class="me-sm-2">Last Name</label>
+                                        <input class="form-control" type="text" wire:model.defer="state.lname">
+                                        @error('lname')
+                                        <div class="text-danger">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group col-xl-6">
+                                        <label class="me-sm-2">Email</label>
+                                        <input class="form-control" type="email" wire:model.defer="state.email">
+                                        @error('email')
+                                        <div class="text-danger">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group col-xl-6">
+                                        <label class="me-sm-2">Mobile Number</label>
+                                        <input class="form-control" type="text" wire:model.defer="state.mobile">
+                                        @error('mobile')
+                                        <div class="text-danger">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+
+
+                                    <div class="form-group col-xl-12">
+                                        <button  class="btn btn-primary ps-5 pe-5" type="submit">Update</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
+
         </div>
     </div>
 
     <x-confirmation-alert />
 
 </div>
+
+@push('styles')
+
+<style>
+    .user-image {
+        border: 3px solid #adb5bd;
+        padding: 3px;
+    }
+    .user-image:hover {
+        background-color: blue;
+        cursor: pointer;
+    }
+</style>
+
+@endpush
+
+@push('alpine-plugins')
+<!-- Alpine Plugins -->
+<script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
+@endpush
