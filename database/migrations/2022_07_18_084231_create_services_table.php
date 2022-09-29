@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained();
+            $table->foreignId('provider_id')->nullable()->constrained('users');
             $table->foreignId('category_id')->nullable()->constrained();
             $table->string('name');
             $table->string('slug')->unique();

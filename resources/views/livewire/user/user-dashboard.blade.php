@@ -16,18 +16,18 @@
                     </div>
                     <div class="widget settings-menu">
                         <ul role="tablist" class="nav nav-tabs">
-                            <li class="nav-item {{ $showDashboard ? 'current' : null }}">
-                                <a href="#" class="nav-link {{ $showDashboard ? 'active' : null }}" wire:click.prevent="filteredDashboard('dashboard')">
+                            <li class="nav-item {{ $currentTab === 'dashboard' ? 'current' : null }}">
+                                <a href="#" class="nav-link {{ $currentTab === 'dashboard' ? 'active' : null }}" wire:click.prevent="filteredDashboard('dashboard')">
                                     <i class="fas fa-chart-line"></i> <span>User Dashboard</span>
                                 </a>
                             </li>
-                            <li class="nav-item {{ $showFavorites ? 'current' : null }}">
-                                <a href="#" class="nav-link {{ $showFavorites ? 'active' : null }}" wire:click.prevent="filteredDashboard('favorites')">
+                            <li class="nav-item {{ $currentTab === 'favorites' ? 'current' : null }}">
+                                <a href="#" class="nav-link {{ $currentTab === 'favorites' ? 'active' : null }}" wire:click.prevent="filteredDashboard('favorites')">
                                     <i class="fas fa-heart"></i> <span>Favorites</span>
                                 </a>
                             </li>
-                            <li class="nav-item {{ $showBookings ? 'current' : null }}">
-                                <a href="#" class="nav-link {{ $showBookings ? 'active' : null }}" wire:click.prevent="filteredDashboard('bookings')">
+                            <li class="nav-item {{ $currentTab === 'bookings' ? 'current' : null }}">
+                                <a href="#" class="nav-link {{ $currentTab === 'bookings' ? 'active' : null }}" wire:click.prevent="filteredDashboard('bookings')">
                                     <i class="far fa-calendar-check"></i> <span>My Bookings</span>
                                 </a>
                             </li>
@@ -49,7 +49,7 @@
                         </ul>
                     </div>
                 </div>
-                @if ($showDashboard)
+                @if ($currentTab === 'dashboard')
                     <div class="col-xl-9 col-md-8">
                         <div class="row">
                             <div class="col-lg-4">
@@ -79,7 +79,7 @@
                         </div>
                     </div>
                 @endif
-                @if ($showFavorites)
+                @if ($currentTab === 'favorites')
                     <div class="col-xl-9 col-md-8">
                         <h4 class="widget-title">My Favorites</h4>
                         <div class="row">
@@ -129,7 +129,7 @@
                     </div>
                 @endif
 
-                @if ($showBookings)
+                @if ($currentTab === 'bookings')
                 <div class="col-xl-9 col-md-8">
                     <div class="row align-items-center mb-4">
                         <div class="col">
@@ -137,14 +137,13 @@
                         </div>
                         <div class="col-auto">
                             <div class="sort-by">
-                                <select class="form-control-sm custom-select">
-                                    <option>All</option>
-                                    <option>Pending</option>
-                                    <option>Inprogress</option>
-                                    <option>Complete Request</option>
-                                    <option>Rejected</option>
-                                    <option>Cancelled</option>
-                                    <option>Completed</option>
+                                <select class="form-control-sm custom-select" wire:model="filter">
+                                    <option value="">All</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="in progress">Inprogress</option>
+                                    <option value="rejected">Rejected</option>
+                                    <option value="cancelled">Cancelled</option>
+                                    <option value="completed">Completed</option>
                                 </select>
                             </div>
                         </div>
@@ -180,9 +179,14 @@
                                     </div>
                                 </div>
                                 <div class="booking-action">
-                                    {{-- <a href="#" class="btn btn-sm bg-info-light"><i class="far fa-eye"></i> Chat</a> --}}
                                     @if (in_array($booking->status, ['pending']))
-                                    <a href="#" class="btn btn-sm bg-danger-light" wire:click.prevent="alertConfirm('{{ $booking->id }}')"><i class="fas fa-times"></i> Cancel the Service</a>
+                                    <a href="#" class="btn btn-sm bg-danger-light" wire:click.prevent="alertConfirm('{{ $booking->id }}')"><i class="fas fa-times-circle"></i> Cancel the Service</a>
+                                    @elseif (in_array($booking->status, ['completed']))
+                                    <a href="#" class="btn btn-sm bg-success-light" wire:click.prevent="bookAgain('{{ $booking->service_id }}')"><i class="fas fa-check-circle"></i> Book Again?</a>
+                                    @elseif (in_array($booking->status, ['cancelled']))
+                                    <a href="#" class="btn btn-sm bg-danger-light"><i class="fas fa-times"></i> You Cancelled this Service</a>
+                                    @elseif (in_array($booking->status, ['rejected']))
+                                    <a href="#" class="btn btn-sm bg-danger-light"><i class="fas fa-times"></i> Provider Rejected this Service</a>
                                     @endif
                                 </div>
                             </div>

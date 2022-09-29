@@ -23,7 +23,7 @@ class ServiceFactory extends Factory
         $slug = Str::slug($service_name, "-") .$an;
         $user = DB::table('users')->whereNotIn('role', ['ADM', 'USR'])->get()->random()->id;
         return [
-            'user_id' => $user,
+            'provider_id' => $user,
             'category_id' => $this->faker->numberBetween(1, 6),
             'name' => $service_name,
             'slug' => $slug,

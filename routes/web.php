@@ -37,11 +37,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('book/{service_slug}/service', BookService::class)->name('book.service');
 
     Route::group(['middleware' => 'usr' ], function () {
-        Route::get('user-dashboard', UserDashboard::class)->name('user.dashboard');
+        Route::get('user-account/{dashboard}', UserDashboard::class)->name('user.dashboard');
     });
 
     Route::group(['middleware' => 'svp' ], function () {
-        Route::get('service-provider-dashboard', ServiceProviderDashboard::class)->name('svp.dashboard');
+        Route::get('service-provider/{dashboard}', ServiceProviderDashboard::class)->name('svp.dashboard');
         Route::get('/service-create', ServiceCreate::class)->name('svp.service-create');
         Route::get('/service/{serviceSlug}/edit', ServiceUpdate::class)->name('svp.service-update');
     });

@@ -20,6 +20,7 @@ class BookService extends Component
     {
         $service = Service::whereslug($this->service_slug)->first();
         $this->state['price'] = $service->price;
+        $this->state['name'] = $service->name;
         $this->serviceId = $service->id;
 
         return view('livewire.user.book-service', compact('service'));
@@ -36,6 +37,7 @@ class BookService extends Component
         ])->validate();
 
         $data['service_id'] = $service->id;
+        $data['provider_id'] = $service->provider_id;
         auth()->user()->bookings()->create($data);
         $this->dispatchBrowserEvent('alert', [
             'type' => 'success',
@@ -43,7 +45,7 @@ class BookService extends Component
             'title' => 'Success',
         ]);
 
-        return redirect()->route('user.dashboard');
+        return redirect()->route('user.dashboard', 'dashboard');
     }
 
 }

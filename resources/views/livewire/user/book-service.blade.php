@@ -8,7 +8,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-10">
                     <div class="section-header text-center">
-                        <h2>Book Service</h2>
+                        <h2>Book Service: {{ $state['name'] }}</h2>
                     </div>
                     <form wire:submit.prevent="book('{{ $serviceId }}')">
                         <div class="row">

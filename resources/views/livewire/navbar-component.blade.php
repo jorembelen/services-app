@@ -165,15 +165,14 @@
                             @if (auth()->user()->role == 'ADM')
                             <a class="dropdown-item" href="{{ route('admin.dashboard') }}">Dashboard</a>
                             @elseif (auth()->user()->role == 'SVP')
-                            <a class="dropdown-item" href="{{ route('svp.dashboard') }}">Dashboard</a>
+                            <a class="dropdown-item" href="{{ route('svp.dashboard', 'dashboard') }}">Dashboard</a>
                             @else
-                            <a class="dropdown-item" href="{{ route('user.dashboard') }}">Dashboard</a>
+                            <a class="dropdown-item" href="{{ route('user.dashboard', 'dashboard') }}">Dashboard</a>
                             @endif
-                            <a class="dropdown-item" href="favourites.html">Favourites</a>
-                            <a class="dropdown-item" href="user-bookings.html">My Bookings</a>
-                            <a class="dropdown-item" href="user-settings.html">Profile Settings</a>
-                            <a class="dropdown-item" href="all-services.html">Book Services</a>
-                            <a class="dropdown-item" href="chat.html">Chat</a>
+                            <a class="dropdown-item" href="{{ route('user.dashboard', 'favorites') }}">Favorites</a>
+                            <a class="dropdown-item" href="{{ route('user.dashboard', 'bookings') }}" x-ref="bookingsLink">My Bookings</a>
+                            <a class="dropdown-item" href="#">Profile Settings</a>
+                            <a class="dropdown-item" href="#">Book Services</a>
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 Logout
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -503,6 +502,11 @@
     });
     window.addEventListener('hide-regUser-form', function (event) {
         $('#regUser').modal('hide');
+    });
+</script>
+<script>
+    $('[x-ref="bookingsLink"]').on('click', function () {
+        localStorage.setItem('_x_currentTab', 'bookings')
     });
 </script>
 @endpush

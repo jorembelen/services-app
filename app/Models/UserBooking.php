@@ -14,6 +14,7 @@ class UserBooking extends Model
     protected $fillable = [
         'user_id',
         'service_id',
+        'provider_id',
         'location',
         'price',
         'date',
@@ -50,10 +51,11 @@ class UserBooking extends Model
     public function getStatusBadgeAttribute()
     {
     	$badges = [
+    		'completed' => 'success',
     		'pending' => 'primary',
-    		'in orogress' => 'success',
+    		'in progress' => 'success',
     		'cancelled' => 'warning',
-    		'rejected by user' => 'danger',
+    		'rejected' => 'danger',
     	];
 
     	return $badges[$this->status];

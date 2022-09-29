@@ -3,43 +3,45 @@
 namespace App\Http\Livewire\User;
 
 use App\Http\Livewire\Admin\AdminComponent;
+use App\Models\Service;
 use App\Models\UserBooking;
 use App\Models\UserFavorite;
 
 class UserDashboard extends AdminComponent
 {
-    public $showDashboard = true;
-    public $showFavorites = false;
-    public $showBookings = false;
+    public $currentTab, $filter;
     protected $listeners = ['cancel'];
+
+    public function mount($dashboard)
+    {
+        $this->currentTab = $dashboard;
+    }
 
     public function render()
     {
+        $status = $this->filter;
+        $filtered = new UserBooking();
+        $filtered = $filtered->with('user', 'service')->whereuser_id(auth()->id());
+
+        if($status) {
+            $filtered = $filtered->wherestatus($status);
+        }
+
+        $bookings = $filtered->latest()->paginate(12);
+
         $favorites = UserFavorite::with('user', 'service')->whereuser_id(auth()->id())->latest()->paginate(12);
-        $bookings = UserBooking::with('user', 'service')->whereuser_id(auth()->id())->latest()->paginate(12);
 
         return view('livewire.user.user-dashboard', compact('favorites', 'bookings'));
     }
 
     public function filteredDashboard($value)
     {
-        if($value == 'favorites') {
-            $this->showFavorites = true;
-            $this->showDashboard = false;
-            $this->showBookings = false;
-        } elseif ($value == 'dashboard'){
-            $this->showDashboard = true;
-            $this->showFavorites = false;
-            $this->showBookings = false;
-        } elseif ($value == 'bookings'){
-            $this->showBookings = true;
-            $this->showFavorites = false;
-            $this->showDashboard = false;
-        }
-
+        $this->currentTab = $value;
+        $this->filter = null;
     }
 
-        /**
+
+    /**
      * show confirmation on cancel
      *
      * @param  mixed $id
@@ -65,5 +67,11 @@ class UserDashboard extends AdminComponent
         ]);
         return;
     }
+
+    public function bookAgain(Service $service)
+    {
+        return redirect()->route('book.service', $service->slug);
+    }
+
 
 }

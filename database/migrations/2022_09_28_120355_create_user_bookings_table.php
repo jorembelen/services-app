@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('service_id')->constrained();
+            $table->string('provider_id');
             $table->string('location');
             $table->integer('price');
             $table->date('date');

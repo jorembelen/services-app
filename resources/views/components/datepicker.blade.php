@@ -18,6 +18,7 @@
     var f1 = flatpickr(document.getElementById('{{ $id }}'), {
         enableTime: false,
         dateFormat: "Y-m-d",
+        minDate: new Date().fp_incr(0) // 14 days from now
     });
 </script>
 @endpush
