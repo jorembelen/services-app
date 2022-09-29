@@ -153,12 +153,12 @@
                     <div class="bookings">
                         <div class="booking-list">
                             <div class="booking-widget">
-                                <a href="service-details.html" class="booking-img">
+                                <a href="{{ route('home.service_details', $booking->service->slug) }}" class="booking-img">
                                     <img src="{{ $booking->service->defaultImage() }}" alt="User Image">
                                 </a>
                                 <div class="booking-det-info">
                                     <h3>
-                                        <a href="service-details.html">{{ $booking->service->name }}</a>
+                                        <a href="{{ route('home.service_details', $booking->service->slug) }}">{{ $booking->service->name }}</a>
                                     </h3>
                                     <ul class="booking-details">
                                         <li>
