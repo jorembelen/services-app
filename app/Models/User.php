@@ -117,9 +117,19 @@ class User extends Authenticatable
         return $this->hasMany(UserBooking::class);
     }
 
+    public function providerBookings()
+    {
+        return $this->hasMany(UserBooking::class, 'provider_id');
+    }
+
     public function getUserTotalBookingsAttribute()
     {
         return $this->bookings()->count();
+    }
+
+    public function getProviderTotalBookingsAttribute()
+    {
+        return $this->providerBookings()->count();
     }
 
 }

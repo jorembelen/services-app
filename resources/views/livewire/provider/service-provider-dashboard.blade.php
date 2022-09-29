@@ -72,7 +72,7 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <a href="#" class="dash-widget dash-bg-1">
-                            <span class="dash-widget-icon">0</span>
+                            <span class="dash-widget-icon">{{ auth()->user()->provider_total_bookings }}</span>
                             <div class="dash-widget-info">
                                 <span>Bookings</span>
                             </div>
