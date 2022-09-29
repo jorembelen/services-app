@@ -20,14 +20,7 @@
                                 </div>
                             </div>
                             <address class="service-location"><i class="fas fa-location-arrow"></i> {{ $service->provider->providerLocation() }}</address>
-                            {{-- <div class="rating">
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                                <i class="fas fa-star filled"></i>
-                                <span class="d-inline-block average-rating">(5)</span>
-                            </div> --}}
+
                             <div class="service-cate">
                                 <a href="{{ route('home.category-service', $service->category->slug) }}">{{ $service->category->name }}</a>
                             </div>
@@ -56,9 +49,6 @@
                                 <li class="nav-item">
                                     <a href="#" class="nav-link {{ $descriptionShow ? 'active' : null }}" wire:click.prevent="showDescription">Overview</a>
                                 </li>
-                                {{-- <li class="nav-item">
-                                    <a href="#" class="nav-link {{ $servicesOfferedShow ? 'active' : null }}" wire:click.prevent="showServOffer">Services Offered</a>
-                                </li> --}}
                                 <li class="nav-item">
                                     <a href="#" class="nav-link {{ $reviewsShow ? 'active' : null }}" wire:click.prevent="showReviews" >Reviews</a>
                                 </li>
@@ -82,12 +72,7 @@
                                         <div class="card-body">
                                             <h5 class="card-title">Services Offered</h5>
                                             <div class="service-offer">
-                                                {{-- {{ $service->providerServices()->toArray() }} --}}
                                                 <ul class="list-bullet">
-                                                    {{-- @php
-                                                    $sp = $service->providerServices->toArray();
-                                                    $so = explode('|', $service->providerServices);
-                                                    @endphp --}}
                                                     @foreach ($service->providerServices as $item)
                                                     <li>{{ $item->name }}</li>
                                                     @endforeach
@@ -128,51 +113,6 @@
                             </div>
                         </div>
                     </div>
-                    {{-- <h4 class="card-title">Related Services</h4>
-                    <div class="service-carousel" wire:ignore>
-                        <div class="popular-slider owl-carousel owl-theme">
-
-                            @foreach ($r_services as $r_service)
-                            <div class="service-widget">
-                                <div class="service-img">
-                                    <a href="{{ route('home.service_details', $r_service->slug) }}">
-                                        <img class="img-fluid serv-img" alt="Service Image" src="{{ asset('/assets/img/services/' .$r_service->images) }}">
-                                    </a>
-                                    <div class="item-info">
-                                        <div class="service-user">
-                                            <a href="#">
-                                                <img src="{{ $r_service->provider->userAvatar() }}" alt="">
-                                            </a>
-                                            <span class="service-price">{{ $r_service->price }}</span>
-                                        </div>
-                                        <div class="cate-list">
-                                            <a class="bg-yellow" href="{{ route('home.category-service', $r_service->category->slug) }}">{{ $r_service->category->name }}</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="service-content">
-                                    <h3 class="title">
-                                        <a href="#">{{ $r_service->name }}</a>
-                                    </h3>
-                                    <div class="rating">
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star"></i>
-                                        <span class="d-inline-block average-rating">(4.5)</span>
-                                    </div>
-                                    <div class="user-info">
-                                        <div class="row">
-                                            <span class="col-auto ser-contact"><i class="fas fa-phone me-1"></i> <span>{{ $r_service->provider->mobile }}</span></span>
-                                            <span class="col ser-location"><span>{{ $r_service->provider->providerLocation() }}</span>  <i class="fas fa-map-marker-alt ms-1"></i></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
-                        </div>
-                    </div> --}}
                 </div>
                 <div class="col-lg-4 theiaStickySidebar" wire:ignore>
                     <div class="sidebar-widget widget">

@@ -30,11 +30,11 @@ class ServicesComponent extends AdminComponent
         }
 
         auth()->user()->addUserFavorites($service->id);
-        $msg = $service->userFavorite() ? 'added' : 'removed';
+        $msg = $service->userFavorite() ? 'added to' : 'removed from';
 
         $this->dispatchBrowserEvent('alert', [
             'type' => 'success',
-            'message' => 'Service was ' .$msg .' to favorites!',
+            'message' => 'Successfully ' .$msg .' favorites!',
             'title' => 'Success',
         ]);
     }
