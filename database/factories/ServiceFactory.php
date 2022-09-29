@@ -18,9 +18,8 @@ class ServiceFactory extends Factory
      */
     public function definition()
     {
-        $service_name = $this->faker->text(10);
-        $an = $this->faker->numberBetween(1, 20);
-        $slug = Str::slug($service_name, "-") .$an;
+        $service_name = $this->faker->text(25);
+        $slug = Str::slug($service_name, "-");
         $user = DB::table('users')->whereNotIn('role', ['ADM', 'USR'])->get()->random()->id;
         return [
             'provider_id' => $user,
