@@ -53,6 +53,9 @@ class ServiceProviderDashboard extends AdminComponent
     {
         $this->currentTab = $value;
         $this->filter = null;
+        if($value === 'profile') {
+            $this->state = auth()->user()->toArray();
+        }
     }
 
     public function inactive(Service $service)
