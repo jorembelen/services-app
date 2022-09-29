@@ -49,6 +49,7 @@
                                 <div class="form-group">
                                     <label>Time slot <span class="text-danger">*</span></label>
                                     <select class="form-control form-select" wire:model.defer="state.time">
+                                        <option value="">Choose Time</option>
                                         <option value="10:00">10:00 AM</option>
                                         <option value="11:00">11:00 AM</option>
                                         <option value="12:00">12:00 PM</option>

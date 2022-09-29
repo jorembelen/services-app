@@ -45,7 +45,7 @@ class BookService extends Component
             'title' => 'Success',
         ]);
 
-        return redirect()->route('user.dashboard', 'dashboard');
+        return redirect()->route('user.dashboard', 'bookings');
     }
 
 }
