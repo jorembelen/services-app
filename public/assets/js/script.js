@@ -15,9 +15,9 @@ Version      : 1.0
 			});
 		}
 	}
-	
+
 	// Sidebar
-	
+
 	if($(window).width() <= 991) {
 		var Sidemenu = function() {
 			this.$menuItem = $('.main-nav a');
@@ -54,8 +54,8 @@ $('.header-fixed').append('<div class="sidebar-overlay"></div>');
 		return false;
 	});
 
-	
-	
+
+
 	// $('body').append('<div class="sidebar-overlay"></div>');
 	// $(document).on('click', '#mobile_btn', function() {
 	// 	$('main-wrapper').toggleClass('slide-nav');
@@ -64,23 +64,23 @@ $('.header-fixed').append('<div class="sidebar-overlay"></div>');
 	// 	$('.header').removeClass('navbar-fixed');
 	// 	return false;
 	// });
-	
+
 	$(document).on('click', '.sidebar-overlay', function() {
 		$('html').removeClass('menu-opened');
 		$(this).removeClass('opened');
 		$('main-wrapper').removeClass('slide-nav');
 	});
-	
+
 	$(document).on('click', '#menu_close', function() {
 		$('html').removeClass('menu-opened');
 		$('.sidebar-overlay').removeClass('opened');
 		$('main-wrapper').removeClass('slide-nav');
 	});
-	
+
 	// Content div min height set
-	
+
 	function resizeInnerDiv() {
-		var height = $(window).height();	
+		var height = $(window).height();
 		var header_height = $(".header").height();
 		var footer_height = $(".footer").height();
 		var breadcrumb_height = $(".breadcrumb-bar").height();
@@ -89,7 +89,7 @@ $('.header-fixed').append('<div class="sidebar-overlay"></div>');
 		var trueheight2 = trueheight - breadcrumb_height;
 		$(".content").css("min-height", trueheight2);
 	}
-	
+
 	if($('.content').length > 0 ){
 		resizeInnerDiv();
 	}
@@ -99,9 +99,9 @@ $('.header-fixed').append('<div class="sidebar-overlay"></div>');
 			resizeInnerDiv();
 		}
 	});
-	
+
 	// Owl Carousel
-	
+
 	if($('.service-slider').length > 0 ){
 		$('.service-slider').owlCarousel({
 			items:3,
@@ -122,9 +122,9 @@ $('.header-fixed').append('<div class="sidebar-overlay"></div>');
 					loop:true
 				}
 			}
-		});	
+		});
 	}
-	
+
 	if($('.popular-slider').length > 0 ){
 		$('.popular-slider').owlCarousel({
 			items:3,
@@ -143,9 +143,9 @@ $('.header-fixed').append('<div class="sidebar-overlay"></div>');
 					items:2
 				}
 			}
-		});	
+		});
 	}
-	
+
 	if($('.images-carousel').length > 0 ){
 		$('.images-carousel').owlCarousel({
 			loop: true,
@@ -188,18 +188,18 @@ $('.header-fixed').append('<div class="sidebar-overlay"></div>');
 					loop:true
 				}
 			}
-		});	
+		});
 	}
-	
-	// fade in scroll 
-	
+
+	// fade in scroll
+
 	if($('.main-wrapper .aos').length>0){
 		AOS.init({
 			duration:1200,
 			once:true
 		});
 	}
-	
+
 	// Home four header
 
 	$(window).scroll(function(){
@@ -209,7 +209,7 @@ $('.header-fixed').append('<div class="sidebar-overlay"></div>');
 		  if (scroll >= 100) sticky.addClass('add-header-bg');
 		  else sticky.removeClass('add-header-bg');
 	});
-	
+
     // Membership Add More
 
     $(".membership-info").on('click','.trash', function () {
@@ -231,9 +231,9 @@ $('.header-fixed').append('<div class="sidebar-overlay"></div>');
     	$(".membership-info").append(membershipcontent);
     	return false;
     });
-	
+
 	// Datetimepicker
-	
+
 	if($('.datetimepicker').length > 0) {
 		$('.datetimepicker').datetimepicker({
 			format: 'DD-MM-YYYY',
@@ -248,11 +248,11 @@ $('.header-fixed').append('<div class="sidebar-overlay"></div>');
 	}
 
 	// Datepicker
-	
+
 	if($('.datepicker').length > 0) {
 		$('.datepicker').datepicker({
 				dateFormat: 'dd-mm-yy',
-				minDate: new Date(),	
+				minDate: new Date(),
 				icons: {
 					up: "fas fa-angle-up",
 					down: "fas fa-angle-down",
@@ -264,7 +264,7 @@ $('.header-fixed').append('<div class="sidebar-overlay"></div>');
 	}
 
 	// Fav-btn
-	
+
 	$('.fav-btn .fav-icon').on('click', function () {
       	$(this).toggleClass('favourite');
     });
@@ -275,7 +275,7 @@ $('.header-fixed').append('<div class="sidebar-overlay"></div>');
 	(function() {
 		if ($(window).width() > 991)
 			chatAppTarget.removeClass('chat-slide');
-		
+
 		$(document).on("click",".chat-window .chat-users-list a.media",function () {
 			if ($(window).width() <= 991) {
 				chatAppTarget.addClass('chat-slide');
@@ -285,13 +285,13 @@ $('.header-fixed').append('<div class="sidebar-overlay"></div>');
 		$(document).on("click","#back_user_list",function () {
 			if ($(window).width() <= 991) {
 				chatAppTarget.removeClass('chat-slide');
-			}	
+			}
 			return false;
 		});
 	})();
-	
+
 	$(window).on('load',function(){
 		$('.page-loading').fadeOut();
 	});
-	
+
 })(jQuery);
