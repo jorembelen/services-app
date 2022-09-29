@@ -171,7 +171,7 @@
                                         <li>
                                             <span>Provider</span>
                                             <div class="avatar avatar-xs me-1">
-                                                <img class="avatar-img rounded-circle" alt="User Image" src="{{ auth()->user()->avatar }}">
+                                                <img class="avatar-img rounded-circle" alt="User Image" src="{{ $booking->service->provider->avatar }}">
                                             </div>
                                             {{ $booking->service->provider->full_name }}
                                         </li>

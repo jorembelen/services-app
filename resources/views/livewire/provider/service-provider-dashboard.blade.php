@@ -276,11 +276,11 @@
                                         <li><span>Location</span> {{ $booking->location }}</li>
                                         <li><span>Notes</span> {{ $booking->notes }}</li>
                                         <li>
-                                            <span>Provider</span>
+                                            <span>Customer</span>
                                             <div class="avatar avatar-xs me-1">
-                                                <img class="avatar-img rounded-circle" alt="User Image" src="{{ auth()->user()->avatar }}">
+                                                <img class="avatar-img rounded-circle" alt="User Image" src="{{ $booking->user->avatar }}">
                                             </div>
-                                            {{ $booking->service->provider->full_name }}
+                                            {{ $booking->user->full_name }}
                                         </li>
                                     </ul>
                                 </div>
