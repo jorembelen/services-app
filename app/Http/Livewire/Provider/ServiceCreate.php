@@ -77,7 +77,7 @@ class ServiceCreate extends Component
 
         DB::beginTransaction();
         if($data) {
-            $data['user_id'] = auth()->id();
+            $data['provider_id'] = auth()->id();
             $images=array();
             if($files = $this->images){
                 foreach($files as $file){
@@ -111,7 +111,7 @@ class ServiceCreate extends Component
                 'title' => 'New service was added successfully!',
                 'text' => '',
             ]);
-            return redirect()->route('svp.dashboard');
+            return redirect()->route('svp.dashboard', 'dashboard');
         }else{
             DB::rollBack();
             return redirect()->back();

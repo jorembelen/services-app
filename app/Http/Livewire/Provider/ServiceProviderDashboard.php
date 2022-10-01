@@ -137,12 +137,12 @@ class ServiceProviderDashboard extends AdminComponent
                 $service->providerServices()->delete();
                 $service->delete();
                 DB::commit();
-                $this->dispatchBrowserEvent('swal:modal', [
+                $this->dispatchBrowserEvent('alert', [
                     'type' => 'success',
                     'message' => 'Service was successfully deleted!',
                     'title' => 'Success',
                 ]);
-                $this->myActiveServices();
+                return;
             }
             }else{
                 DB::rollBack();

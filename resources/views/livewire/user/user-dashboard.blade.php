@@ -36,7 +36,7 @@
                                     <i class="far fa-user"></i> <span>Profile Settings</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="far fa-star"></i> <span>Reviews</span>
                                 </a>
@@ -45,7 +45,7 @@
                                 <a href="#" class="nav-link">
                                     <i class="fas fa-hashtag"></i> <span>Payment</span>
                                 </a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
                 </div>

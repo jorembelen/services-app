@@ -93,7 +93,6 @@ class ServiceUpdate extends Component
 
         DB::beginTransaction();
         if($data) {
-            $data['user_id'] = auth()->id();
             $images=array();
             if($files = $this->images){
                 $data = $this->validate([
@@ -142,7 +141,7 @@ class ServiceUpdate extends Component
                 'message' => $service->name .' was updated successfully!',
                 'title' => 'Success',
             ]);
-            return redirect()->route('svp.dashboard');
+            return redirect()->route('svp.dashboard', 'dashboard');
         }else{
             DB::rollBack();
             return redirect()->back();

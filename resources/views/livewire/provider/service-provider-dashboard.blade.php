@@ -37,12 +37,7 @@
                                 <i class="far fa-user"></i> <span>Profile Settings</span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-money-bill-alt"></i> <span>Wallet</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="far fa-calendar-alt"></i> <span>Subscription</span>
                             </a>
@@ -61,7 +56,7 @@
                             <a href="#" class="nav-link">
                                 <i class="fas fa-hashtag"></i> <span>Payment</span>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
             </div>
@@ -180,7 +175,7 @@
                     </li>
                 </ul>
                 <div class="row">
-                    @foreach ($inactive_services as $item)
+                    @forelse ($inactive_services as $item)
                         <div class="col-lg-4 col-md-6 inactive-service">
                             <div class="service-widget">
                                 <div class="service-img">
@@ -226,7 +221,9 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                        @empty
+                        <h3 class="text-center mt-4">No Inactive Services Available</h3>
+                    @endforelse
                     <ul class="pagination mb-2">
                         <li>
                             {{ $inactive_services->links() }}
