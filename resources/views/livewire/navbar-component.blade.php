@@ -265,7 +265,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" x-data="{ show: false }">
                     <div class="login-header">
                         <h3>Join as a Provider</h3>
                     </div>
@@ -361,7 +361,7 @@
                             <div class="col-md-6">
                                 <div class="form-group form-focus">
                                     <label class="focus-label">Create Password</label>
-                                    <input type="{{ $showPass ? 'text' : 'password' }}" wire:model.defer="password" class="form-control" placeholder="********">
+                                    <input :type="show ? 'text' : 'password'" wire:model.defer="password" class="form-control" placeholder="********">
                                     @error('password')
                                     <div class="text-danger">
                                         {{ $message }}
@@ -372,12 +372,12 @@
                             <div class="col-md-6">
                                 <div class="form-group form-focus">
                                     <label class="focus-label">Confirm Password</label>
-                                    <input type="{{ $showPass ? 'text' : 'password' }}" wire:model.defer="password_confirmation" class="form-control" placeholder="********">
+                                    <input :type="show ? 'text' : 'password'" wire:model.defer="password_confirmation" class="form-control" placeholder="********">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="rn-check-box">
-                                    <a href="#" wire:click.prevent="showPassword">{{ $showPass ? 'Hide Password' : 'Show Password' }}</a>
+                                    <a class="forgot-link" href="#" @click.prevent="show = !show"><span x-text="show ? 'Hide Password' : 'Show Password'"></span></a>
                                 </div>
                             </div>
                         </div>
@@ -402,14 +402,14 @@
 
     <!-- User Register Modal -->
     <div class="modal account-modal fade multi-step" id="regUser" wire:ignore.self>
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header p-0 border-0">
                     <button type="button" class="close" wire:click.prevent="close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" x-data="{ show: false }">
                     <div class="login-header">
                         <h3>Join as a User</h3>
                     </div>
@@ -417,23 +417,29 @@
                     <!-- Register Form -->
                     <form wire:submit.prevent="registerUser">
 
-                        <div class="form-group form-focus">
-                            <label class="focus-label">First Name</label>
-                            <input type="text" wire:model.defer="fname" class="form-control" placeholder="John">
-                            @error('fname')
-                            <div class="text-danger">
-                                {{ $message }}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group form-focus">
+                                    <label class="focus-label">First Name</label>
+                                    <input type="text" wire:model.defer="fname" class="form-control" placeholder="John">
+                                    @error('fname')
+                                    <div class="text-danger">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
                             </div>
-                            @enderror
-                        </div>
-                        <div class="form-group form-focus">
-                            <label class="focus-label">Last Name</label>
-                            <input type="text" wire:model.defer="lname" class="form-control" placeholder="Doe">
-                            @error('lname')
-                            <div class="text-danger">
-                                {{ $message }}
+                            <div class="col-md-6">
+                                <div class="form-group form-focus">
+                                    <label class="focus-label">Last Name</label>
+                                    <input type="text" wire:model.defer="lname" class="form-control" placeholder="Doe">
+                                    @error('lname')
+                                    <div class="text-danger">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
                             </div>
-                            @enderror
                         </div>
 
 
@@ -446,22 +452,30 @@
                             </div>
                             @enderror
                         </div>
-                        <div class="form-group form-focus">
-                            <label class="focus-label">Create Password</label>
-                            <input type="password" wire:model.defer="password" class="form-control" placeholder="********">
-                            @error('password')
-                            <div class="text-danger">
-                                {{ $message }}
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group form-focus">
+                                    <label class="focus-label">Create Password</label>
+                                    <input :type="show ? 'text' : 'password'" wire:model.defer="password" class="form-control" placeholder="********">
+                                    @error('password')
+                                    <div class="text-danger">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
                             </div>
-                            @enderror
+                            <div class="col-md-6">
+                                <div class="form-group form-focus">
+                                    <label class="focus-label">Confirm Password</label>
+                                    <input :type="show ? 'text' : 'password'" wire:model.defer="password_confirmation" class="form-control" placeholder="********">
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group form-focus">
-                            <label class="focus-label">Confirm Password</label>
-                            <input type="{{ $showPass ? 'text' : 'password' }}" wire:model.defer="password_confirmation" class="form-control" placeholder="********">
-                        </div>
+
                         <div class="col-6">
                             <div class="rn-check-box">
-                                <a href="#" wire:click.prevent="showPassword">{{ $showPass ? 'Hide Password' : 'Show Password' }}</a>
+                                <a class="forgot-link" href="#" @click.prevent="show = !show"><span x-text="show ? 'Hide Password' : 'Show Password'"></span></a>
                             </div>
                         </div>
                         <div class="text-end">
