@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Livewire\Admin\AdminDashboard;
+use App\Http\Livewire\Admin\Categories\CategoriesComponent as CategoriesCategoriesComponent;
 use App\Http\Livewire\Admin\Services\ServicesComponent as ServicesServicesComponent;
 use App\Http\Livewire\Categories\CategoriesComponent;
 use App\Http\Livewire\Categories\CategoryServices;
@@ -49,6 +50,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['middleware' => 'adm' ], function () {
         Route::get('admin-dashboard', AdminDashboard::class)->name('admin.dashboard');
         Route::get('admin-services', ServicesServicesComponent::class)->name('admin.services');
+        Route::get('admin-categories', CategoriesCategoriesComponent::class)->name('admin.categories');
     });
 
 

@@ -19,7 +19,7 @@
                                 <i class="far fa-user"></i>
                             </span>
                             <div class="dash-widget-info">
-                                <h3>429</h3>
+                                <h3>{{ $totalUsers }}</h3>
                                 <h6 class="text-muted">Users</h6>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                                 <i class="fas fa-user-shield"></i>
                             </span>
                             <div class="dash-widget-info">
-                                <h3>148</h3>
+                                <h3>{{ $totalProviders }}</h3>
                                 <h6 class="text-muted">Providers</h6>
                             </div>
                         </div>
@@ -49,14 +49,14 @@
                                 <i class="fas fa-qrcode"></i>
                             </span>
                             <div class="dash-widget-info">
-                                <h3>124</h3>
+                                <h3>{{ $totalServices }}</h3>
                                 <h6 class="text-muted">Services</h6>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-sm-6 col-12">
+            {{-- <div class="col-xl-3 col-sm-6 col-12">
                 <div class="card">
                     <div class="card-body">
                         <div class="dash-widget-header">
@@ -70,7 +70,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
         <div class="row">
             {{-- <div class="col-md-6 d-flex">

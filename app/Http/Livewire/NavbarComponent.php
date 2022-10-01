@@ -12,6 +12,7 @@ class NavbarComponent extends Component
     public $email, $password, $remember, $cities, $password_confirmation, $fname, $lname, $mobile;
     public $selectedProvince = null;
     public $selectedCities = null;
+    public $showPass = false;
 
     public function mount()
     {
@@ -30,10 +31,18 @@ class NavbarComponent extends Component
         $this->cities = ProvinceCity::whereprovince_id($selectedProvince)->orderBy('name', 'asc')->get();
     }
 
+    public function showPassword()
+    {
+        $this->showPass = !$this->showPass;
+    }
+
     public function showLogin()
     {
         $this->dispatchBrowserEvent('show-form');
         $this->dispatchBrowserEvent('hide-regProvider-form');
+        $this->dispatchBrowserEvent('hide-regUser-form');
+        $this->resetInput();
+        $this->resetValidation();
     }
 
     public function close()
@@ -41,7 +50,9 @@ class NavbarComponent extends Component
         $this->dispatchBrowserEvent('hide-form');
         $this->dispatchBrowserEvent('hide-regProvider-form');
         $this->dispatchBrowserEvent('hide-regUser-form');
+        $this->showPass = false;
         $this->resetInput();
+        $this->resetValidation();
     }
 
     public function resetInput()

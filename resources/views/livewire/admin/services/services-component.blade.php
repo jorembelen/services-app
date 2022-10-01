@@ -64,6 +64,7 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Service</th>
+                                            <th>Provider</th>
                                             <th>Location</th>
                                             <th>Category</th>
                                             <th>Amount</th>
@@ -78,6 +79,7 @@
                                             <td><img class="rounded service-img me-1" src="{{ $service->defaultImage() }}" alt="">
                                                 {{ $service->name }}
                                             </td>
+                                            <td>{{ $service->provider->full_name }}</td>
                                             <td>{{ $service->provider->providerLocation() }}</td>
                                             <td>{{ $service->category->name }} </td>
                                             <td>{{ $service->price }}</td>

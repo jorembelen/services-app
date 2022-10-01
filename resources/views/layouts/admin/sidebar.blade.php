@@ -8,14 +8,14 @@
         <div class="sidebar-inner slimscroll">
             <div id="sidebar-menu" class="sidebar-menu">
                 <ul>
-                    <li class="active">
+                    <li class="{{ (request()->segment(1) == 'admin-dashboard') ? 'active' : '' }}">
                         <a href="{{ route('admin.dashboard') }}"><i class="fas fa-columns"></i> <span>Dashboard</span></a>
                     </li>
-                    <li>
+                    <li class="{{ (request()->segment(1) == 'admin-services') ? 'active' : '' }}">
                         <a href="{{ route('admin.services') }}"><i class="fas fa-bullhorn"></i> <span> Services</span></a>
                     </li>
-                    <li>
-                        <a href="#"><i class="fas fa-layer-group"></i> <span>Categories</span></a>
+                    <li class="{{ (request()->segment(1) == 'admin-categories') ? 'active' : '' }}">
+                        <a href="{{ route('admin.categories') }}"><i class="fas fa-layer-group"></i> <span>Categories</span></a>
                     </li>
                     <li>
                         <a href="#"><i class="fab fa-buffer"></i> <span>Sub Categories</span></a>

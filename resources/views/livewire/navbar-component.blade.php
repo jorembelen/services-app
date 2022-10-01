@@ -361,7 +361,7 @@
                             <div class="col-md-6">
                                 <div class="form-group form-focus">
                                     <label class="focus-label">Create Password</label>
-                                    <input type="password" wire:model.defer="password" class="form-control" placeholder="********">
+                                    <input type="{{ $showPass ? 'text' : 'password' }}" wire:model.defer="password" class="form-control" placeholder="********">
                                     @error('password')
                                     <div class="text-danger">
                                         {{ $message }}
@@ -372,7 +372,12 @@
                             <div class="col-md-6">
                                 <div class="form-group form-focus">
                                     <label class="focus-label">Confirm Password</label>
-                                    <input type="password" wire:model.defer="password_confirmation" class="form-control" placeholder="********">
+                                    <input type="{{ $showPass ? 'text' : 'password' }}" wire:model.defer="password_confirmation" class="form-control" placeholder="********">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="rn-check-box">
+                                    <a href="#" wire:click.prevent="showPassword">{{ $showPass ? 'Hide Password' : 'Show Password' }}</a>
                                 </div>
                             </div>
                         </div>
@@ -452,10 +457,15 @@
                         </div>
                         <div class="form-group form-focus">
                             <label class="focus-label">Confirm Password</label>
-                            <input type="password" wire:model.defer="password_confirmation" class="form-control" placeholder="********">
+                            <input type="{{ $showPass ? 'text' : 'password' }}" wire:model.defer="password_confirmation" class="form-control" placeholder="********">
+                        </div>
+                        <div class="col-6">
+                            <div class="rn-check-box">
+                                <a href="#" wire:click.prevent="showPassword">{{ $showPass ? 'Hide Password' : 'Show Password' }}</a>
+                            </div>
                         </div>
                         <div class="text-end">
-                            <a class="forgot-link" href="#">Already have an account?</a>
+                            <a class="forgot-link" href="#" wire:click.prevent="showLogin">Already have an account?</a>
                         </div>
                         <div class="d-grid">
                             <button class="btn btn-primary btn-block btn-lg login-btn" type="submit">Signup</button>
