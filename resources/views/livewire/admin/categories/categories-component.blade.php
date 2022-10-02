@@ -29,8 +29,9 @@
 										<thead>
 											<tr>
 												<th>#</th>
-												<th>Category</th>
-												<th>Date</th>
+												<th>Name</th>
+												<th>Slug</th>
+												<th>Description</th>
 												<th class="text-end">Action</th>
 											</tr>
 										</thead>
@@ -41,7 +42,8 @@
                                              <td>
                                                 <img class="rounded service-img me-1" src="{{ $category->default_image }}" alt="Category Image">{{ $category->name }}</td>
                                             </td>
-                                             <td>{{ $category->created_at->format('d M Y') }}</td>
+                                            <td>{{ $category->slug }}</td>
+                                            <td>{{ $category->description }}</td>
                                              <td class="text-end">
                                                 <a href="#" class="btn btn-sm bg-success-light me-2" wire:click.prevent="edit('{{ $category->id }}')">	<i class="far fa-edit me-1"></i> Edit</a>
                                                 <a href="#" class="btn btn-sm bg-danger-light me-2" wire:click.prevent="alertConfirm('{{ $category->id }}')">	<i class="fa fa-trash me-1"></i> Delete</a>
