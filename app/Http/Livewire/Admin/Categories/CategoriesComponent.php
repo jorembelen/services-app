@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Admin\Categories;
 use App\Http\Livewire\Admin\AdminComponent;
 use App\Models\Category;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
@@ -16,7 +15,7 @@ class CategoriesComponent extends AdminComponent
     public $showFiltered = 'categories';
     public $edit = false;
     public $hasImage = 0;
-    public $name, $slug, $description, $image;
+    public $name, $slug, $image;
     public $catId, $oldImage;
     protected $listeners = ['cancel'];
 
@@ -38,9 +37,7 @@ class CategoriesComponent extends AdminComponent
         $this->showFiltered = 'add';
         $this->catId = $category->id;
         $this->oldImage = $category->image;
-        $this->name = $category->name;
         $this->slug = $category->slug;
-        $this->description = $category->description;
         $this->edit = true;
     }
 
@@ -49,7 +46,6 @@ class CategoriesComponent extends AdminComponent
         $data = $this->validate([
             'name' => 'required',
             'slug' => 'required|unique:categories,slug,' .$this->catId,
-            'description' => 'required',
             'image' => 'nullable',
             ]);
 

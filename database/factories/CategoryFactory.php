@@ -22,7 +22,6 @@ class CategoryFactory extends Factory
         return [
             'name' => $category_name,
             'slug' => $slug,
-            'description' => $this->faker->text(100),
             'image' => 'category-' .$this->faker->numberBetween(1,6) .'.jpg',
         ];
     }

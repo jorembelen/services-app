@@ -197,7 +197,7 @@
                 <li class="nav-item dropdown">
                     <a href="javascript:void(0)" class="dropdown-toggle user-link  nav-link" data-bs-toggle="dropdown">
                         <span class="user-img">
-                            <img class="rounded-circle" src="{{ asset('/admin/assets/img/user.jpg') }}" width="40" alt="Admin">
+                            <img class="rounded-circle" src="{{ auth()->user()->avatar }}" width="40" alt="Admin">
                         </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end">

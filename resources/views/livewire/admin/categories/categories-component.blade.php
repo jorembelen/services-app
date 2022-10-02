@@ -31,7 +31,6 @@
 												<th>#</th>
 												<th>Name</th>
 												<th>Slug</th>
-												<th>Description</th>
 												<th class="text-end">Action</th>
 											</tr>
 										</thead>
@@ -43,7 +42,6 @@
                                                 <img class="rounded service-img me-1" src="{{ $category->default_image }}" alt="Category Image">{{ $category->name }}</td>
                                             </td>
                                             <td>{{ $category->slug }}</td>
-                                            <td>{{ $category->description }}</td>
                                              <td class="text-end">
                                                 <a href="#" class="btn btn-sm bg-success-light me-2" wire:click.prevent="edit('{{ $category->id }}')">	<i class="far fa-edit me-1"></i> Edit</a>
                                                 <a href="#" class="btn btn-sm bg-danger-light me-2" wire:click.prevent="alertConfirm('{{ $category->id }}')">	<i class="fa fa-trash me-1"></i> Delete</a>
@@ -82,15 +80,6 @@
                                 <label>Slug</label>
                                 <input class="form-control" type="text" wire:model="slug">
                                 @error('slug')
-                                <div class="text-danger">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label>Description</label>
-                                <input class="form-control" type="text" wire:model="description">
-                                @error('description')
                                 <div class="text-danger">
                                     {{ $message }}
                                 </div>
