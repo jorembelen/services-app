@@ -176,7 +176,6 @@
 
                 </ul>
 
-
                 @else
                 <li class="nav-item">
                     <a class="nav-link header-login" href="#" wire:click.prevent="showLogin">Login</a>
@@ -382,8 +381,6 @@
                             </div>
                         </div>
 
-
-
                         <div class="text-end">
                             <a class="forgot-link" href="#" wire:click.prevent="showLogin">Already have an account?</a>
                         </div>
@@ -518,11 +515,6 @@
     });
     window.addEventListener('hide-regUser-form', function (event) {
         $('#regUser').modal('hide');
-    });
-</script>
-<script>
-    $('[x-ref="bookingsLink"]').on('click', function () {
-        localStorage.setItem('_x_currentTab', 'bookings')
     });
 </script>
 @endpush

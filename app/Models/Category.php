@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\CategoryTraits;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Category extends Model
 {
@@ -23,9 +24,12 @@ class Category extends Model
     }
 
 
-    public function servicesCount()
+    public function getDefaultImageAttribute()
     {
-        # code...
+        if($this->image) {
+            return Storage::disk('s3')->url('uploads/categories/' .$this->image);
+        }
+        return asset('assets/img/category/category-6.jpg');
     }
 
 
