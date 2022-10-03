@@ -48,7 +48,7 @@
     </div>
     <!-- /Loader -->
 
-    @livewire('navbar-component');
+    @livewire('navbar-component')
 
     <div class="main-wrapper">
 
