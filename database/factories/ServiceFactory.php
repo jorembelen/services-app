@@ -24,6 +24,7 @@ class ServiceFactory extends Factory
         return [
             'provider_id' => $user,
             'category_id' => $this->faker->numberBetween(1, 6),
+            'sub_category_id' => $this->faker->numberBetween(1, 10),
             'name' => $service_name,
             'slug' => $slug,
             'description' => $this->faker->text(500),
