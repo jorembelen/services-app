@@ -56,8 +56,8 @@
                                         <label>Category <span class="text-danger">*</span></label>
                                         <select class="form-control form-select" wire:model.defer="category_id">
                                             <option value="">Choose Category...</option>
-                                            @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            @foreach ($categories as $data)
+                                            <option value="{{ $data->id }}">{{ $data->category->name }} > {{ $data->name }}</option>
                                             @endforeach
                                         </select>
                                         @error('category_id')

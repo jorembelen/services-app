@@ -31,6 +31,11 @@
                                     <i class="far fa-calendar-check"></i> <span>My Bookings</span>
                                 </a>
                             </li>
+                            <li class="nav-item {{ $currentTab === 'req-service' ? 'current' : null }}">
+                                <a href="#" class="nav-link {{ $currentTab === 'req-service' ? 'active' : null }}" wire:click.prevent="filteredDashboard('req-service')">
+                                    <i class="far fa-calendar-check"></i> <span>Request Service</span>
+                                </a>
+                            </li>
                             <li class="nav-item {{ $currentTab === 'profiile' ? 'current' : null }}">
                                 <a href="#" class="nav-link {{ $currentTab === 'profile' ? 'active' : null }}" wire:click.prevent="filteredDashboard('profile')">
                                     <i class="far fa-user"></i> <span>Profile Settings</span>
@@ -198,6 +203,14 @@
                     <ul class="pagination mb-2">
                         <li>{{ $bookings->links() }}</li>
                     </ul>
+
+                </div>
+                @endif
+
+                @if ($currentTab === 'req-service')
+                <div class="col-xl-9 col-md-8">
+
+                        @livewire('user.request-service-component')
 
                 </div>
                 @endif

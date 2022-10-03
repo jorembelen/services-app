@@ -22,7 +22,7 @@
                             <address class="service-location"><i class="fas fa-location-arrow"></i> {{ $service->provider->providerLocation() }}</address>
 
                             <div class="service-cate">
-                                <a href="{{ route('home.category-service', $service->category->slug) }}">{{ $service->category->name }}</a>
+                                <a href="{{ route('home.category-service', $service->category->slug) }}">{{ $service->category->name }} > {{ $service->subCategory->name }}</a>
                             </div>
                         </div>
                         <div class="service-images service-carousel" wire:ignore>

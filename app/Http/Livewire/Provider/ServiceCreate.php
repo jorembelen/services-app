@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Provider;
 use App\Models\Category;
 use App\Models\ProviderService;
 use App\Models\Service;
+use App\Models\SubCategory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
@@ -49,7 +50,7 @@ class ServiceCreate extends Component
 
     public function render()
     {
-        $categories = Category::query()->get(['id', 'name']);
+        $categories = SubCategory::query()->orderBy('category_id', 'asc')->get();
 
         return view('livewire.provider.service-create', compact('categories'));
     }
@@ -74,6 +75,10 @@ class ServiceCreate extends Component
             'category_id.required' => 'Please choose category.',
             'services_offered.required' => 'Please add services.',
         ]);
+
+        $sc = SubCategory::find($data['category_id']);
+        $data['category_id'] = $sc->category_id;
+        $data['sub_category_id'] = $sc->id;
 
         DB::beginTransaction();
         if($data) {

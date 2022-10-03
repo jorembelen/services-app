@@ -13,17 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('services', function (Blueprint $table) {
+        Schema::create('service_requests', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('provider_id')->nullable()->constrained('users');
+            $table->foreignId('user_id')->nullable()->constrained('users');
             $table->foreignId('category_id')->nullable()->constrained();
-            $table->foreignId('sub_category_id')->nullable()->constrained();
+            $table->foreignId('sub_categories_id')->nullable()->constrained();
             $table->string('name');
-            $table->string('slug')->unique();
             $table->text('description');
             $table->decimal('price');
-            $table->string('images')->nullable();
-            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }
@@ -35,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('services');
+        Schema::dropIfExists('service_requests');
     }
 };

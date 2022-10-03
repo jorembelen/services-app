@@ -23,6 +23,10 @@ class Category extends Model
         return $this->hasMany(Service::class);
     }
 
+    public function subCategory()
+    {
+        return $this->hasMany(SubCategory::class);
+    }
 
     public function getDefaultImageAttribute()
     {

@@ -11,7 +11,7 @@
                     </span>
                 </a>
                 <a href="/" class="navbar-brand logo">
-                    <img src="{{ asset('assets/img/logo.png') }}" class="img-fluid" alt="Logo">
+                    <img src="{{ asset('assets/sample-logo.png') }}" class="img-fluid" alt="Logo">
                 </a>
                 <a href="/" class="navbar-brand logo-small">
                     <img src="{{ asset('assets/img/logo-icon.png') }}" class="img-fluid" alt="Logo">
