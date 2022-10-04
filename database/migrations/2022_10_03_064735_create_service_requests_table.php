@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users');
             $table->foreignId('category_id')->nullable()->constrained();
-            $table->foreignId('sub_categories_id')->nullable()->constrained();
+            $table->foreignId('sub_category_id')->nullable()->constrained();
             $table->string('name');
             $table->text('description');
             $table->decimal('price');

@@ -51,7 +51,7 @@
                     </li>
                     @endif
 
-                    <!-- Notifications -->
+                    {{-- <!-- Notifications -->
                     <li class="nav-item dropdown logged-item">
                         <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-bell"></i> <span class="badge badge-pill bg-yellow">1</span>
@@ -139,11 +139,11 @@
 
                     <!-- chat -->
                     <li class="nav-item logged-item">
-                        <a href="chat.html" class="nav-link">
+                        <a href="#" class="nav-link">
                             <i class="fa fa-comments" aria-hidden="true"></i>
                         </a>
                     </li>
-                    <!-- /chat -->
+                    <!-- /chat --> --}}
 
                     <!-- User Menu -->
                     <li class="nav-item dropdown has-arrow logged-item">
