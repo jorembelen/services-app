@@ -34,6 +34,9 @@
                     <li class="has-submenu {{ (request()->segment(1) == 'services') ? 'active' : '' }}">
                         <a href="{{ route('home.services') }}">Services</a>
                     </li>
+                    <li class="has-submenu {{ (request()->segment(1) == 'service-requests') ? 'active' : '' }}">
+                        <a href="{{ route('home.service-request') }}">Service Requests</a>
+                    </li>
 
                 </ul>
             </div>

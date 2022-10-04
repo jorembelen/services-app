@@ -23,9 +23,19 @@ class ServiceRequest extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function subCategory()
     {
         return $this->belongsTo(SubCategory::class);
+    }
+
+    public function getDefaultImageAttribute()
+    {
+        return asset('assets/img/category/category-18.jpg');
     }
 
 }
